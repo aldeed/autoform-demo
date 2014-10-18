@@ -1,0 +1,24 @@
+# Meteor packages used by this project, one per line.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+standard-app-packages
+underscore
+jquery
+spiderable
+accounts-password
+accounts-ui
+mrt:jquery-easing
+iron:router
+mrt:moment
+mrt:numeral
+mizzao:bootstrap-3
+dburles:collection-helpers
+aldeed:collection2
+sacha:spin
+aldeed:autoform@4.0.0-rc4
+zimme:iron-router-active
+reactive-var
+aldeed:delete-button
+

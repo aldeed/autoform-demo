@@ -1,0 +1,4 @@
+/* Error Classes */
+
+.error, .error .help-block {color: #900}
+.error input, .error select, .error textarea {border-color: #900}

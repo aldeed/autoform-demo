@@ -1,0 +1,142 @@
+<template name="insertaf">
+  <p>This is an example of using <code>autoForm</code> to create a form that inserts into a collection. It uses Bootstrap styles.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">&#123;&#123;#autoForm id="afInsertDemo" type="insert" collection=Collections.People&#125;&#125;
+  &lt;div class="form-group &#123;&#123;#if afFieldIsInvalid name='firstName'&#125;&#125;has-error&#123;&#123;/if&#125;&#125;"&gt;
+    &lt;label class="control-label"&gt;&#123;&#123;afFieldLabelText name='firstName'&#125;&#125;&lt;/label&gt;
+    &#123;&#123;&gt; afFieldInput name='firstName'&#125;&#125;
+    &#123;&#123;#if afFieldIsInvalid name='firstName'&#125;&#125;
+    &lt;span class="help-block"&gt;&#123;&#123;&#123;afFieldMessage name='firstName'&#125;&#125;&#125;&lt;/span&gt;
+    &#123;&#123;/if&#125;&#125;
+  &lt;/div&gt;
+  &lt;div class="form-group &#123;&#123;#if afFieldIsInvalid name='lastName'&#125;&#125;has-error&#123;&#123;/if&#125;&#125;"&gt;
+    &lt;label class="control-label"&gt;&#123;&#123;afFieldLabelText name='lastName'&#125;&#125;&lt;/label&gt;
+    &#123;&#123;&gt; afFieldInput name='lastName'&#125;&#125;
+    &#123;&#123;#if afFieldIsInvalid name='lastName'&#125;&#125;
+    &lt;span class="help-block"&gt;&#123;&#123;&#123;afFieldMessage name='lastName'&#125;&#125;&#125;&lt;/span&gt;
+    &#123;&#123;/if&#125;&#125;
+  &lt;/div&gt;
+  &lt;div class="form-group &#123;&#123;#if afFieldIsInvalid name='age'&#125;&#125;has-error&#123;&#123;/if&#125;&#125;"&gt;
+    &lt;label class="control-label"&gt;&#123;&#123;afFieldLabelText name='age'&#125;&#125;&lt;/label&gt;
+    &#123;&#123;&gt; afFieldInput name='age'&#125;&#125;
+    &#123;&#123;#if afFieldIsInvalid name='age'&#125;&#125;
+    &lt;span class="help-block"&gt;&#123;&#123;&#123;afFieldMessage name='age'&#125;&#125;&#125;&lt;/span&gt;
+    &#123;&#123;/if&#125;&#125;
+  &lt;/div&gt;
+  &lt;div class="form-group"&gt;
+    &lt;button type="submit" class="btn btn-primary"&gt;Add Person&lt;/button&gt;
+    &lt;button type="reset" class="btn btn-default"&gt;Reset Form&lt;/button&gt;
+  &lt;/div&gt;
+&#123;&#123;/autoForm&#125;&#125;</pre>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>JavaScript</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">Schemas = {};
+
+UI.registerHelper("Schemas", Schemas);
+
+Schemas.Person = new SimpleSchema({
+  firstName: {
+    type: String,
+    index: 1,
+    unique: true
+  },
+  lastName: {
+    type: String,
+    optional: true
+  },
+  age: {
+    type: Number,
+    optional: true
+  }
+});
+
+var Collections = {};
+
+UI.registerHelper("Collections", Collections);
+
+People = Collections.People = new Mongo.Collection("People");
+People.attachSchema(Schemas.Person);
+
+Meteor.publish(null, function () {
+  return People.find();
+});
+
+People.allow({
+  insert: function () {
+    return true;
+  },
+  remove: function () {
+    return true;
+  }
+});</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+        {{#autoForm id="afInsertDemo" type="insert" collection=Collections.People}}
+          <div class="form-group {{#if afFieldIsInvalid name='firstName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='firstName'}}</label>
+            {{> afFieldInput name='firstName'}}
+            {{#if afFieldIsInvalid name='firstName'}}
+            <span class="help-block">{{{afFieldMessage name='firstName'}}}</span>
+            {{/if}}
+          </div>
+          <div class="form-group {{#if afFieldIsInvalid name='lastName'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='lastName'}}</label>
+            {{> afFieldInput name='lastName'}}
+            {{#if afFieldIsInvalid name='lastName'}}
+            <span class="help-block">{{{afFieldMessage name='lastName'}}}</span>
+            {{/if}}
+          </div>
+          <div class="form-group {{#if afFieldIsInvalid name='age'}}has-error{{/if}}">
+            <label class="control-label">{{afFieldLabelText name='age'}}</label>
+            {{> afFieldInput name='age'}}
+            {{#if afFieldIsInvalid name='age'}}
+            <span class="help-block">{{{afFieldMessage name='age'}}}</span>
+            {{/if}}
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Add Person</button>
+            <button type="reset" class="btn btn-default">Reset Form</button>
+          </div>
+        {{/autoForm}}
+        </div>
+      </div>
+      <h2>People List</h2>
+      <table class="table table-bordered table-condensed">
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>Age</td>
+            <td style="width: 70px"></td>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each people}}
+            <tr>
+              <td>{{firstName}} {{lastName}}</td>
+              <td>{{age}}</td>
+              <td style="width: 70px">{{> quickRemoveButton collection=Collections.People _id=this._id class="btn btn-sm btn-danger"}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,169 @@
+<template name="fieldvalues">
+  <h2>afFieldValueIs Test</h2>
+  <p>In this example, a "B" field is displayed only when the current value of the "A" field is "foo".</p>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">&#123;&#123;#autoForm collection="FieldValueIs" type="insert" id="FieldValueIsForm"&#125;&#125;
+  &#123;&#123;> afQuickField name="a" options="allowed" noselect=true&#125;&#125;
+  &#123;&#123;#if afFieldValueIs name="a" value="foo"&#125;&#125;
+    &#123;&#123;> afQuickField name="b"&#125;&#125;
+  &#123;&#123;/if&#125;&#125;
+&#123;&#123;/autoForm&#125;&#125;</pre>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>JavaScript</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">FieldValueIs = new Mongo.Collection("FieldValueIs");
+FieldValueIs.attachSchema(new SimpleSchema({
+  a: {
+    type: String,
+    allowedValues: ["foo", "bar"]
+  },
+  b: {
+    type: String
+  }
+}));</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+        {{> isForm}}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <h2>afFieldValueContains Test</h2>
+  <p>In this example, a "B" field is displayed only when the current value of the "A" field contains "foo".</p>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">&#123;&#123;#autoForm collection="FieldValueContains" type="insert" id="FieldValueContainsForm"&#125;&#125;
+  &#123;&#123;> afQuickField name="a" options="allowed" noselect=true&#125;&#125;
+  &#123;&#123;#if afFieldValueContains name="a" value="foo"&#125;&#125;
+    &#123;&#123;> afQuickField name="b"&#125;&#125;
+  &#123;&#123;/if&#125;&#125;
+&#123;&#123;/autoForm&#125;&#125;</pre>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>JavaScript</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">FieldValueContains = new Mongo.Collection("FieldValueContains");
+FieldValueContains.attachSchema(new SimpleSchema({
+  a: {
+    type: [String],
+    allowedValues: ["foo", "bar"]
+  },
+  b: {
+    type: String
+  }
+}));</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+        {{> containsForm}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>getFieldValue Test</h2>
+  <p>In this example, using AutoForm.getFieldValue, the current value is reactively displayed.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">&#123;&#123;#autoForm collection="FieldValueIs" type="insert" id="reactiveCurrentValueForm"&#125;&#125;
+  &#123;&#123;> afQuickField name="a" options="allowed" noselect=true&#125;&#125;
+  &lt;p&gt;The current value of the "A" field is &#123;&#123;currentFieldValue "a"&#125;&#125;.&lt;/p&gt;
+&#123;&#123;/autoForm&#125;&#125;</pre>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>JavaScript</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">FieldValueIs = new Mongo.Collection("FieldValueIs");
+FieldValueIs.attachSchema(new SimpleSchema({
+  a: {
+    type: String,
+    allowedValues: ["foo", "bar"]
+  },
+  b: {
+    type: String
+  }
+}));
+
+Template.registerHelper("currentFieldValue", function (fieldName) {
+  return AutoForm.getFieldValue("reactiveCurrentValueForm", fieldName) || "not selected";
+});</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+        {{> reactiveCurrentValue}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="isForm">
+  {{#autoForm collection="FieldValueIs" type="insert" id="FieldValueIsForm"}}
+  {{> afQuickField name="a" options="allowed" noselect=true}}
+  {{#if afFieldValueIs name="a" value="foo"}}
+  {{> afQuickField name="b"}}
+  {{/if}}
+  {{/autoForm}}
+</template>
+
+<template name="containsForm">
+  {{#autoForm collection="FieldValueContains" type="insert" id="FieldValueContainsForm"}}
+  {{> afQuickField name="a" options="allowed" noselect=true}}
+  {{#if afFieldValueContains name="a" value="foo"}}
+  {{> afQuickField name="b"}}
+  {{/if}}
+  {{/autoForm}}
+</template>
+
+<template name="reactiveCurrentValue">
+  {{#autoForm collection="FieldValueIs" type="insert" id="reactiveCurrentValueForm"}}
+  {{> afQuickField name="a" options="allowed" noselect=true}}
+  <p>The current value of the "A" field is {{currentFieldValue "a"}}.</p>
+  {{/autoForm}}
+</template>

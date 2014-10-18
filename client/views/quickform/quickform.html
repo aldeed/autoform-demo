@@ -1,0 +1,50 @@
+<template name="quickform">
+  <p>This shows how a quickForm is rendered given a particular schema. This is a simple quickForm that uses a <code>schema</code> attribute and submits to a server method. There is no collection involved.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <p>The schema seen here is used to generate and validate the example quickForm on this page. Select one of the predefined examples or adjust the schema yourself and click Update to see what happens.</p>
+          <div class="form-group">
+            <select class="form-control schema-selection">
+              <option value="">Custom</option>
+              {{#each predefinedSchemas}}
+              <option value="{{this.title}}">{{this.title}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control schema-json" rows="10"></textarea>
+          </div>
+          {{#with tipText}}
+          <div class="alert alert-info">
+          {{this}}
+          </div>
+          {{/with}}
+          <div style="form-group">
+            <button type="button" class="btn btn-primary update-schema-object">Update</button>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+          <code>&#123;&#123;> quickForm id="demo" schema=schemaFromJSON type="method" meteormethod="demoSubmission"&#125;&#125;</code>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-body">
+        {{#if destroyForm}}
+        {{! this is a wonky workaround for the fact that autoform doesn't handle reactively changing schema attribute, which should be fixed eventually}}
+        {{else}}
+        {{> quickForm id="demo" schema=schemaFromJSON type="method" meteormethod="demoSubmission"}}
+        {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,32 @@
+<template name="layout">
+  {{> header}}
+  <div class="container">
+    {{> yield}}
+  </div>
+</template>
+
+<template name="header">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{pathFor 'home'}}">AutoForm Demo</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="{{isActiveRoute 'quickform'}}"><a href="{{pathFor 'quickform'}}">quickForm</a></li>
+            <li class="{{isActiveRoute 'insertaf'}}"><a href="{{pathFor 'insertaf'}}">Insert autoForm</a></li>
+            <li class="{{isActiveRoute 'fieldvalues'}}"><a href="{{pathFor 'fieldvalues'}}">Field Values</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+</template>
