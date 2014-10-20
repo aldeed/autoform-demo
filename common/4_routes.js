@@ -14,6 +14,7 @@ Router.map(function() {
   this.route('quickform');
   this.route('fieldvalues');
   this.route('insertaf');
+  this.route('qfdetails');
 });
 
 if (Meteor.isClient) {

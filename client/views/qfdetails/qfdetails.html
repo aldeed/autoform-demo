@@ -1,0 +1,256 @@
+<template name="qfdetails">
+  <p>So what's behind the magic of a quickForm? Well for starters, this:</p>
+<pre>&#123;&#123;&gt; quickForm id="demo" schema=schema&#125;&#125;</pre>
+  <p>Is essentially the same as this:</p>
+<pre>&#123;&#123;#autoForm id="demo" schema=schema&#125;&#125;
+  &#123;&#123;&gt; afQuickFields&#125;&#125;
+  &lt;div&gt;
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+  &lt;/div&gt;
+&#123;&#123;/autoForm&#125;&#125;</pre>
+  <p>Which is essentially the same as this:</p>
+<pre>&#123;&#123;#autoForm id="demo" schema=schema&#125;&#125;
+  &#123;&#123;#each afFieldNames&#125;&#125;
+    &#123;&#123;&gt; afQuickField name=this options="auto"&#125;&#125;
+  &#123;&#123;/each&#125;&#125;
+  &lt;div&gt;
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+  &lt;/div&gt;
+&#123;&#123;/autoForm&#125;&#125;</pre>
+  <p><code>afFieldNames</code> is a helper that returns an array of field names (keys) for the top level of the closest autoForm's schema. <code>afQuickField</code> is a simple selector component that checks a field's type in the schema and selects either an <code>afArrayField</code> component, an <code>afObjectField</code> component, or an <code>afFieldGroup</code> component, as appropriate.</p>
+  <h3>Choosing Fields</h3>
+  <p>Any of the components that potentially render multiple fields can accept either a <code>fields</code> attribute, an <code>omitFields</code> attribute, or both. This includes <code>quickForm</code>, <code>afQuickFields</code>, <code>afFieldNames</code>, <code>afQuickField</code>, <code>afArrayField</code>, <code>afEachArrayItem</code>, and <code>afObjectField</code>. Also, with the exception of <code>quickForm</code>, you can pass a <code>name</code> attribute to any of these components to scope to fields beneath a particular field rather than top-level fields. (In some cases, the <code>name</code> attribute is required.)</p>
+  <p>The following examples all use this schema:</p>
+<pre>Schemas.FieldsExamples = new SimpleSchema({
+  name: {
+    type: String
+  },
+  phone: {
+    type: String,
+    optional: true
+  },
+  address: {
+    type: Object
+  },
+  'address.street': {
+    type: String
+  },
+  'address.street2': {
+    type: String,
+    optional: true
+  },
+  'address.city': {
+    type: String
+  },
+  'address.state': {
+    type: String,
+    allowedValues: ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
+    autoform: {
+      afFieldInput: {
+        firstOption: "(Select a State)"
+      }
+    }
+  },
+  'address.postalCode': {
+    type: String,
+    label: "ZIP"
+  },
+  contacts: {
+    type: Array,
+    optional: true
+  },
+  'contacts.$': {
+    type: Object
+  },
+  'contacts.$.name': {
+    type: String
+  },
+  'contacts.$.phone': {
+    type: String
+  }
+});</pre>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre>&#123;&#123;&gt; quickForm id="fields1" schema=Schemas.FieldsExamples&#125;&#125;</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+          {{> quickForm id="fields1" schema=Schemas.FieldsExamples}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre>&#123;&#123;&gt; quickForm id="fields2" schema=Schemas.FieldsExamples fields="name,contacts"&#125;&#125;</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+          {{> quickForm id="fields2" schema=Schemas.FieldsExamples fields="name,contacts"}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre>&#123;&#123;&gt; quickForm id="fields3" schema=Schemas.FieldsExamples fields="name,address"&#125;&#125;</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+          {{> quickForm id="fields3" schema=Schemas.FieldsExamples fields="name,address"}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre>&#123;&#123;&gt; quickForm id="fields4" schema=Schemas.FieldsExamples fields="address.street,address.street2,address.city,address.state,address.postalCode"&#125;&#125;</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+          {{> quickForm id="fields4" schema=Schemas.FieldsExamples fields="address.street,address.street2,address.city,address.state,address.postalCode"}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre>&#123;&#123;&gt; quickForm id="fields5" schema=Schemas.FieldsExamples omitFields="contacts"&#125;&#125;</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+          {{> quickForm id="fields5" schema=Schemas.FieldsExamples omitFields="contacts"}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre>&#123;&#123;&gt; quickForm id="fields6" schema=Schemas.FieldsExamples fields="contacts.0.name,contacts.0.phone"&#125;&#125;</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+          {{> quickForm id="fields6" schema=Schemas.FieldsExamples fields="contacts.0.name,contacts.0.phone"}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre>&#123;&#123;#autoForm id="fields7" schema=Schemas.FieldsExamples&#125;&#125;
+  &#123;&#123;&gt; afQuickFields fields="name,address.street,address.street2,address.city,address.state,address.postalCode"&#125;&#125;
+  &lt;div&gt;
+    &lt;button type="submit" class="btn btn-primary"&gt;Submit&lt;/button&gt;
+    &lt;button type="reset" class="btn btn-default"&gt;Reset&lt;/button&gt;
+  &lt;/div&gt;
+&#123;&#123;/autoForm&#125;&#125;</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+          {{#autoForm id="fields7" schema=Schemas.FieldsExamples}}
+            {{> afQuickFields fields="name,address.street,address.street2,address.city,address.state,address.postalCode"}}
+            <div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="reset" class="btn btn-default">Reset</button>
+            </div>
+          {{/autoForm}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
