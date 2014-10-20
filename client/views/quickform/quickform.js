@@ -2,6 +2,7 @@ var selectedExampleSchema = new ReactiveVar(0);
 var schemaObject = new ReactiveVar(qfExampleSchemas[0].schema);
 var destroyForm = new ReactiveVar(false);
 var tipText = new ReactiveVar(null);
+var selectedFormType = new ReactiveVar(1);
 
 Template.quickform.rendered = function () {
   var template = this;
@@ -45,6 +46,9 @@ Template.quickform.helpers({
   },
   tipText: function () {
     return tipText.get();
+  },
+  selectedFormType: function (type) {
+    return (selectedFormType.get() === type);
   }
 });
 
@@ -66,6 +70,15 @@ Template.quickform.events({
       });
       selectedExampleSchema.set(idx);
     }
+  },
+  'click .select-type1': function (event, template) {
+    selectedFormType.set(1);
+  },
+  'click .select-type2': function (event, template) {
+    selectedFormType.set(2);
+  },
+  'click .select-type3': function (event, template) {
+    selectedFormType.set(3);
   }
 });
 
