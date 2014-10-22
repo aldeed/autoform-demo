@@ -79,6 +79,9 @@
 <pre>&#123;&#123;&gt; quickForm id="fields1" schema=Schemas.FieldsExamples&#125;&#125;</pre>
         </div>
       </div>
+      <div class="alert alert-info">
+          This is a simple example in which no <code>fields</code> attribute is provided so all fields are included based on the schema, and they are grouped into object and array groups.
+      </div>
     </div>
     <div class="col-md-6">
       <div class="panel panel-default">
@@ -95,15 +98,46 @@
   <hr>
 
   <div class="row">
+      <div class="col-md-6">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4>HTML</h4>
+              </div>
+              <div class="panel-body">
+                  <pre>&#123;&#123;&gt; quickForm id="fields2" schema=Schemas.FieldsExamples fields="name,contacts"&#125;&#125;</pre>
+              </div>
+          </div>
+          <div class="alert alert-info">
+            In this example, we've specified two fields using the <code>fields</code> attribute. <code>contacts</code> has a type of <code>Array</code> so an array group is automatically generated and all object fields are included within that.
+          </div>
+      </div>
+      <div class="col-md-6">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4>Rendered Form</h4>
+              </div>
+              <div class="panel-body">
+                {{> quickForm id="fields2" schema=Schemas.FieldsExamples fields="name,contacts"}}
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4>HTML</h4>
         </div>
         <div class="panel-body">
-<pre>&#123;&#123;&gt; quickForm id="fields2" schema=Schemas.FieldsExamples fields="name,contacts"&#125;&#125;</pre>
+<pre>&#123;&#123;&gt; quickForm id="fields3" schema=Schemas.FieldsExamples fields="name,contacts,contacts.$.phone,contacts.$.name"&#125;&#125;</pre>
         </div>
       </div>
+        <div class="alert alert-info">
+            This is similar to the previous example, except we've additionally specified the two <code>contacts</code> fields with <code>$</code> in place of the array index. Since we have the <code>contacts</code> field itself listed, we still get the array group, but now the fields within each array item appear in reverse order.
+        </div>
     </div>
     <div class="col-md-6">
       <div class="panel panel-default">
@@ -111,7 +145,91 @@
           <h4>Rendered Form</h4>
         </div>
         <div class="panel-body">
-          {{> quickForm id="fields2" schema=Schemas.FieldsExamples fields="name,contacts"}}
+          {{> quickForm id="fields3" schema=Schemas.FieldsExamples fields="name,contacts,contacts.$.phone,contacts.$.name"}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+      <div class="col-md-6">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4>HTML</h4>
+              </div>
+              <div class="panel-body">
+                  <pre>&#123;&#123;&gt; quickForm id="fields4" schema=Schemas.FieldsExamples fields="contacts.0.name,contacts.0.phone"&#125;&#125;</pre>
+              </div>
+          </div>
+          <div class="alert alert-info">
+              In the previous example, we specified the <code>contacts</code> field and a particular order for its subfields by using <code>$</code> in place of the array index. It's also possible to add fields for a particular array index, without the array group wrapper, as this example shows.
+          </div>
+      </div>
+      <div class="col-md-6">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4>Rendered Form</h4>
+              </div>
+              <div class="panel-body">
+                {{> quickForm id="fields4" schema=Schemas.FieldsExamples fields="contacts.0.name,contacts.0.phone"}}
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+      <div class="col-md-6">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4>HTML</h4>
+              </div>
+              <div class="panel-body">
+                  <pre>&#123;&#123;&gt; quickForm id="fields5" schema=Schemas.FieldsExamples fields="name,address"&#125;&#125;</pre>
+              </div>
+          </div>
+          <div class="alert alert-info">
+            This is an example of the default rendering for a field with type <code>Object</code> in the schema. Depending on which template you use, the way in which the fields are visually grouped will be different. With the bootstrap3 template, a "panel" is used.
+          </div>
+      </div>
+      <div class="col-md-6">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4>Rendered Form</h4>
+              </div>
+              <div class="panel-body">
+                {{> quickForm id="fields5" schema=Schemas.FieldsExamples fields="name,address"}}
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre>&#123;&#123;&gt; quickForm id="fields6" schema=Schemas.FieldsExamples fields="name,address,address.city,address.postalCode"&#125;&#125;</pre>
+        </div>
+      </div>
+        <div class="alert alert-info">
+            Much like in the array subobject example, if we specify both the object field and one or more of its child fields, we still get the wrapper that visually groups the related objects, but we also are able to limit which child fields appear and/or the order in which they appear.
+        </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+          {{> quickForm id="fields6" schema=Schemas.FieldsExamples fields="name,address,address.city,address.postalCode"}}
         </div>
       </div>
     </div>
@@ -126,9 +244,12 @@
           <h4>HTML</h4>
         </div>
         <div class="panel-body">
-<pre>&#123;&#123;&gt; quickForm id="fields3" schema=Schemas.FieldsExamples fields="name,address"&#125;&#125;</pre>
+<pre>&#123;&#123;&gt; quickForm id="fields7" schema=Schemas.FieldsExamples fields="name,address.street,address.street2,address.city,address.state,address.postalCode"&#125;&#125;</pre>
         </div>
       </div>
+        <div class="alert alert-info">
+            In contrast to the previous example, here we do not have <code>address</code> in our <code>fields</code> list, so we get all the requested fields but they are not grouped together by the <code>afObjectField</code> template.
+        </div>
     </div>
     <div class="col-md-6">
       <div class="panel panel-default">
@@ -136,7 +257,7 @@
           <h4>Rendered Form</h4>
         </div>
         <div class="panel-body">
-          {{> quickForm id="fields3" schema=Schemas.FieldsExamples fields="name,address"}}
+          {{> quickForm id="fields7" schema=Schemas.FieldsExamples fields="name,address.street,address.street2,address.city,address.state,address.postalCode"}}
         </div>
       </div>
     </div>
@@ -151,9 +272,12 @@
           <h4>HTML</h4>
         </div>
         <div class="panel-body">
-<pre>&#123;&#123;&gt; quickForm id="fields4" schema=Schemas.FieldsExamples fields="address.street,address.street2,address.city,address.state,address.postalCode"&#125;&#125;</pre>
+<pre>&#123;&#123;&gt; quickForm id="fields8" schema=Schemas.FieldsExamples omitFields="contacts"&#125;&#125;</pre>
         </div>
       </div>
+        <div class="alert alert-info">
+           This is an example of the <code>omitFields</code> attribute, which is an easy way to use the default logic for determining the list of fields but omit one or two fields (or field groups) from the form.
+        </div>
     </div>
     <div class="col-md-6">
       <div class="panel panel-default">
@@ -161,96 +285,10 @@
           <h4>Rendered Form</h4>
         </div>
         <div class="panel-body">
-          {{> quickForm id="fields4" schema=Schemas.FieldsExamples fields="address.street,address.street2,address.city,address.state,address.postalCode"}}
+          {{> quickForm id="fields8" schema=Schemas.FieldsExamples omitFields="contacts"}}
         </div>
       </div>
     </div>
   </div>
 
-  <hr>
-
-  <div class="row">
-    <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>HTML</h4>
-        </div>
-        <div class="panel-body">
-<pre>&#123;&#123;&gt; quickForm id="fields5" schema=Schemas.FieldsExamples omitFields="contacts"&#125;&#125;</pre>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>Rendered Form</h4>
-        </div>
-        <div class="panel-body">
-          {{> quickForm id="fields5" schema=Schemas.FieldsExamples omitFields="contacts"}}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <div class="row">
-    <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>HTML</h4>
-        </div>
-        <div class="panel-body">
-<pre>&#123;&#123;&gt; quickForm id="fields6" schema=Schemas.FieldsExamples fields="contacts.0.name,contacts.0.phone"&#125;&#125;</pre>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>Rendered Form</h4>
-        </div>
-        <div class="panel-body">
-          {{> quickForm id="fields6" schema=Schemas.FieldsExamples fields="contacts.0.name,contacts.0.phone"}}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <div class="row">
-    <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>HTML</h4>
-        </div>
-        <div class="panel-body">
-<pre>&#123;&#123;#autoForm id="fields7" schema=Schemas.FieldsExamples&#125;&#125;
-  &#123;&#123;&gt; afQuickFields fields="name,address.street,address.street2,address.city,address.state,address.postalCode"&#125;&#125;
-  &lt;div&gt;
-    &lt;button type="submit" class="btn btn-primary"&gt;Submit&lt;/button&gt;
-    &lt;button type="reset" class="btn btn-default"&gt;Reset&lt;/button&gt;
-  &lt;/div&gt;
-&#123;&#123;/autoForm&#125;&#125;</pre>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>Rendered Form</h4>
-        </div>
-        <div class="panel-body">
-          {{#autoForm id="fields7" schema=Schemas.FieldsExamples}}
-            {{> afQuickFields fields="name,address.street,address.street2,address.city,address.state,address.postalCode"}}
-            <div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-              <button type="reset" class="btn btn-default">Reset</button>
-            </div>
-          {{/autoForm}}
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
