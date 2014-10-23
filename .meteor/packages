@@ -17,7 +17,7 @@ mizzao:bootstrap-3
 dburles:collection-helpers
 aldeed:collection2
 sacha:spin
-aldeed:autoform@4.0.0-rc7
+aldeed:autoform@4.0.0-rc8
 zimme:iron-router-active
 reactive-var
 aldeed:delete-button

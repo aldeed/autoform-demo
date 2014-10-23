@@ -1,13 +1,61 @@
 <template name="types">
   <p>Beginning with AutoForm 4.0, there is advanced support for input types, including the ability to easily add custom input types (AKA form controls or "widgets"). An input type definition is essentially just a small template containing the markup plus a function that tells AutoForm how to obtain an input value from that template.</p>
   <p>By default, AutoForm still automatically selects an appropriate input type based on examining the schema for each field. To override that behavior and choose your own type, you only need to add the `type` attribute to your `afFieldInput` component, or to a component that wraps an `afFieldInput` (such as `afFormGroup` or `afQuickField`), or to the `autoform` object in your schema for the field.</p>
-  <p>Select an input type to see all the different ways in which that type can be used in your form.</p>
-  <h4>THIS EXAMPLE IS A WORK IN PROGRESS - NOT YET WORKING FULLY</h4>
-  <div class="form-group">
-    <select class="form-control type-selection" style="width: 400px">
-      <option value="text">text</option>
-      <option value="textarea">textarea</option>
-    </select>
+  <p>Select an input type to see all the different ways in which that type can be used in your form. Select a schema type, open your browser console, enter a value, and click Submit to see how the value of the field is converted to the proper type requested by the schema.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-label">Input type:</label>
+        <select class="form-control type-selection">
+          <option value="boolean-checkbox">boolean-checkbox</option>
+          <option value="boolean-radios">boolean-radios</option>
+          <option value="boolean-select">boolean-select</option>
+          <option value="button">button</option>
+          <option value="color">color</option>
+          <option value="contenteditable">contenteditable</option>
+          <option value="date">date</option>
+          <option value="datetime">datetime</option>
+          <option value="datetime-local">datetime-local</option>
+          <option value="email">email</option>
+          <option value="file">file</option>
+          <option value="hidden">hidden</option>
+          <option value="image">image</option>
+          <option value="month">month</option>
+          <option value="number">number</option>
+          <option value="password">password</option>
+          <option value="radio">radio</option>
+          <option value="range">range</option>
+          <option value="reset">reset</option>
+          <option value="search">search</option>
+          <option value="select">select</option>
+          <option value="select-checkbox">select-checkbox</option>
+          <option value="select-multiple">select-multiple</option>
+          <option value="select-radio">select-radio</option>
+          <option value="submit">submit</option>
+          <option value="tel">tel</option>
+          <option value="text" selected>text</option>
+          <option value="textarea">textarea</option>
+          <option value="time">time</option>
+          <option value="url">url</option>
+          <option value="week">week</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-label">Schema type:</label>
+        <select class="form-control schema-type-selection">
+          <option value="String">String</option>
+          <option value="Number">Number</option>
+          <option value="Boolean">Boolean</option>
+          <option value="Date">Date</option>
+          <option value="[String]">[String]</option>
+          <option value="[Number]">[Number]</option>
+          <option value="[Boolean]">[Boolean]</option>
+          <option value="[Date]">[Date]</option>
+        </select>
+      </div>
+    </div>
   </div>
   <div class="row">
     <div class="col-md-6">
@@ -48,4 +96,100 @@
   </div>
 
   <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Schema</h4>
+        </div>
+        <div class="panel-body">
+<pre>{
+  typeTest: {
+    type: {{selectedSchemaType}}
+  }
+}</pre>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre>&#123;&#123;#autoForm id="types2" schema=typesSchema2&#125;&#125;
+  &#123;&#123;&gt; afFormGroup name="typeTest" type="{{selectedType}}"&#125;&#125;
+  &lt;div class="form-group"&gt;
+    &lt;button type="submit" class="btn btn-primary"&gt;Submit&lt;/button&gt;
+  &lt;/div&gt;
+&#123;&#123;/autoForm&#125;&#125;</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+          {{#autoForm id="types2" schema=typesSchema2}}
+            {{> afFormGroup name="typeTest" type=selectedType}}
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          {{/autoForm}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Schema</h4>
+        </div>
+        <div class="panel-body">
+<pre>{
+  typeTest: {
+    type: {{selectedSchemaType}}
+  }
+}</pre>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre>&#123;&#123;#autoForm id="types3" schema=typesSchema2&#125;&#125;
+  &lt;div class="form-group"&gt;
+  &#123;&#123;&gt; afFieldInput name="typeTest" type="{{selectedType}}"&#125;&#125;
+  &lt;/div&gt;
+  &lt;div class="form-group"&gt;
+    &lt;button type="submit" class="btn btn-primary"&gt;Submit&lt;/button&gt;
+  &lt;/div&gt;
+&#123;&#123;/autoForm&#125;&#125;</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+          {{#autoForm id="types3" schema=typesSchema2}}
+            <div class="form-group">
+              {{> afFieldInput name="typeTest" type=selectedType}}
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          {{/autoForm}}
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
