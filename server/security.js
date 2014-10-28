@@ -6,3 +6,9 @@ People.allow({
     return true;
   }
 });
+
+Items.allow({
+  update: function () {
+    return true;
+  }
+});

@@ -18,6 +18,18 @@ Schemas.Person = new SimpleSchema({
   }
 });
 
+Schemas.Item = new SimpleSchema({
+  name: {
+    type: String,
+    index: 1,
+    unique: true
+  },
+  tags: {
+    type: String,
+    optional: true
+  }
+});
+
 Schemas.FieldsExamples = new SimpleSchema({
   name: {
     type: String

@@ -16,6 +16,11 @@ Router.map(function() {
   this.route('insertaf');
   this.route('qfdetails');
   this.route('types');
+  this.route('update-each', {
+    waitOn: function () {
+      return Meteor.subscribe("allItems");
+    }
+  });
 });
 
 if (Meteor.isClient) {

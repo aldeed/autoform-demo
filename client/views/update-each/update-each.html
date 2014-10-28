@@ -1,0 +1,121 @@
+<template name="update-each">
+  <p>This is an example of using an <code>autoForm</code> to make repeating edit forms in an <code>#each</code> loop.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">&lt;table class="table table-bordered table-condensed"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;td style="width: 85px"&gt;Items&lt;/td&gt;
+      &lt;td&gt;Tags&lt;/td&gt;
+      &lt;td style="width: 250px"&gt;Tags Edit&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &#123;&#123;#each items&#125;&#125;
+      &lt;tr&gt;
+        &lt;td&gt;&#123;&#123;this.name&#125;&#125;&lt;/td&gt;
+        &lt;td&gt;&#123;&#123;this.tags&#125;&#125;&lt;/td&gt;
+        &lt;td&gt;
+        &#123;&#123;#autoForm id=makeUniqueID type="update" collection=Collections.Items doc=this autosave=true&#125;&#125;
+          &#123;&#123;&gt; afFormGroup name="tags" label=false&#125;&#125;
+        &#123;&#123;/autoForm&#125;&#125;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &#123;&#123;/each&#125;&#125;
+  &lt;/tbody&gt;
+&lt;/table&gt;</pre>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>JavaScript</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">Schemas = {};
+
+UI.registerHelper("Schemas", Schemas);
+
+Schemas.Item = new SimpleSchema({
+  name: {
+    type: String,
+    index: 1,
+    unique: true
+  },
+  tags: {
+    type: String,
+    optional: true
+  }
+});
+
+var Collections = {};
+
+UI.registerHelper("Collections", Collections);
+
+Items = Collections.Items = new Mongo.Collection("Items");
+Items.attachSchema(Schemas.Item);
+
+if (Meteor.isServer) {
+
+  Meteor.publish(null, function () {
+    return Items.find();
+  });
+
+  Items.allow({
+    update: function () {
+      return true;
+    }
+  });
+
+} else if (Meteor.isClient) {
+
+  Template["update-each"].helpers({
+    items: function () {
+      return Items.find({}, {sort: {name: 1}});
+    },
+    makeUniqueID: function () {
+      return "update-each-" + this._id;
+    }
+  });
+
+}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Forms</h4>
+        </div>
+        <div class="panel-body">
+          <table class="table table-bordered table-condensed">
+            <thead>
+              <tr>
+                <td style="width: 85px">Items</td>
+                <td>Tags</td>
+                <td style="width: 250px">Tags Edit</td>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each items}}
+                <tr>
+                  <td>{{this.name}}</td>
+                  <td>{{this.tags}}</td>
+                  <td>
+                  {{#autoForm id=makeUniqueID type="update" collection=Collections.Items doc=this autosave=true}}
+                    {{> afFormGroup name="tags" label=false}}
+                  {{/autoForm}}
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
