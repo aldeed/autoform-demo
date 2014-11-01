@@ -77,7 +77,7 @@ qfExampleSchemas = [
       type: Date,
       optional: true,
       label: "Your birthday",
-      min: (new Date(Date.UTC(1880, 0, 1))),
+      min: (new Date(Date.UTC(2014, 0, 1))),
       autoform: {
         value: new Date("2014-10-18T00:00:00Z")
       }

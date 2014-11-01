@@ -1,4 +1,4 @@
-Template["update-each"].helpers({
+Template["updateEach"].helpers({
   items: function () {
     return Items.find({}, {sort: {name: 1}});
   },

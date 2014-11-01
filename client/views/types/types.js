@@ -28,6 +28,10 @@ Template.types.helpers({
   },
   selectedSchemaType: function () {
     return selectedSchemaTypeAsString.get();
+  },
+  extraInfo: function () {
+    var t = selectedType.get();
+    return extraInfo[t];
   }
 });
 

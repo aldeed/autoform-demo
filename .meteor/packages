@@ -21,4 +21,6 @@ aldeed:autoform@4.0.0-rc9
 zimme:iron-router-active
 reactive-var
 aldeed:delete-button
+rajit:bootstrap3-datepicker
+aldeed:autoform-bs-datepicker
 

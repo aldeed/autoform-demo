@@ -7,39 +7,49 @@
       <div class="form-group">
         <label class="form-label">Input type:</label>
         <select class="form-control type-selection">
-          <option value="boolean-checkbox">boolean-checkbox</option>
-          <option value="boolean-radios">boolean-radios</option>
-          <option value="boolean-select">boolean-select</option>
-          <option value="button">button</option>
-          <option value="color">color</option>
-          <option value="contenteditable">contenteditable</option>
-          <option value="date">date</option>
-          <option value="datetime">datetime</option>
-          <option value="datetime-local">datetime-local</option>
-          <option value="email">email</option>
-          <option value="file">file</option>
-          <option value="hidden">hidden</option>
-          <option value="image">image</option>
-          <option value="month">month</option>
-          <option value="number">number</option>
-          <option value="password">password</option>
-          <option value="radio">radio</option>
-          <option value="range">range</option>
-          <option value="reset">reset</option>
-          <option value="search">search</option>
-          <option value="select">select</option>
-          <option value="select-checkbox">select-checkbox</option>
-          <option value="select-multiple">select-multiple</option>
-          <option value="select-radio">select-radio</option>
-          <option value="submit">submit</option>
-          <option value="tel">tel</option>
-          <option value="text" selected>text</option>
-          <option value="textarea">textarea</option>
-          <option value="time">time</option>
-          <option value="url">url</option>
-          <option value="week">week</option>
+          <optgroup label="Built In">
+            <option value="boolean-checkbox">boolean-checkbox</option>
+            <option value="boolean-radios">boolean-radios</option>
+            <option value="boolean-select">boolean-select</option>
+            <option value="button">button</option>
+            <option value="color">color</option>
+            <option value="contenteditable">contenteditable</option>
+            <option value="date">date</option>
+            <option value="datetime">datetime</option>
+            <option value="datetime-local">datetime-local</option>
+            <option value="email">email</option>
+            <option value="file">file</option>
+            <option value="hidden">hidden</option>
+            <option value="image">image</option>
+            <option value="month">month</option>
+            <option value="number">number</option>
+            <option value="password">password</option>
+            <option value="radio">radio</option>
+            <option value="range">range</option>
+            <option value="reset">reset</option>
+            <option value="search">search</option>
+            <option value="select">select</option>
+            <option value="select-checkbox">select-checkbox</option>
+            <option value="select-multiple">select-multiple</option>
+            <option value="select-radio">select-radio</option>
+            <option value="submit">submit</option>
+            <option value="tel">tel</option>
+            <option value="text" selected>text</option>
+            <option value="textarea">textarea</option>
+            <option value="time">time</option>
+            <option value="url">url</option>
+            <option value="week">week</option>
+          </optgroup>
+          <optgroup label="Add-On Packages">
+            <option value="bootstrap-datepicker">bootstrap-datepicker</option>
+          </optgroup>
         </select>
       </div>
+      {{#with extraInfo}}
+      <div class="alert alert-info">
+        {{{this}}}
+      </div>
+      {{/with}}
     </div>
     <div class="col-md-6">
       <div class="form-group">
@@ -57,6 +67,9 @@
       </div>
     </div>
   </div>
+
+  <hr>
+
   <div class="row">
     <div class="col-md-6">
       <div class="panel panel-default">
