@@ -10,7 +10,14 @@ Template.types.helpers({
       typeTest: {
         type: sst,
         autoform: {
-          type: st
+          type: st,
+          options: function () {
+            return [
+              {label: "2013", value: 2013},
+              {label: "2014", value: 2014},
+              {label: "2015", value: 2015}
+            ];
+          }
         }
       }
     });
@@ -32,6 +39,25 @@ Template.types.helpers({
   extraInfo: function () {
     var t = selectedType.get();
     return extraInfo[t];
+  },
+  showOptions: function () {
+    var t = selectedType.get();
+    return _.contains([
+      "select",
+      "select-multiple",
+      "select-checkbox",
+      "select-checkbox-inline",
+      "select-radio",
+      "select-radio-inline",
+      "select2"
+    ], t);
+  },
+  optionsHelper: function () {
+    return [
+      {label: "2013", value: 2013},
+      {label: "2014", value: 2014},
+      {label: "2015", value: 2015}
+    ];
   }
 });
 

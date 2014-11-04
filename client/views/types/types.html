@@ -29,9 +29,11 @@
             <option value="reset">reset</option>
             <option value="search">search</option>
             <option value="select">select</option>
-            <option value="select-checkbox">select-checkbox</option>
             <option value="select-multiple">select-multiple</option>
+            <option value="select-checkbox">select-checkbox</option>
+            <option value="select-checkbox-inline">select-checkbox-inline</option>
             <option value="select-radio">select-radio</option>
+            <option value="select-radio-inline">select-radio-inline</option>
             <option value="submit">submit</option>
             <option value="tel">tel</option>
             <option value="text" selected>text</option>
@@ -42,6 +44,7 @@
           </optgroup>
           <optgroup label="Add-On Packages">
             <option value="bootstrap-datepicker">bootstrap-datepicker</option>
+            <option value="select2">select2</option>
           </optgroup>
         </select>
       </div>
@@ -77,6 +80,23 @@
           <h4>Schema</h4>
         </div>
         <div class="panel-body">
+{{#if showOptions}}
+<pre>{
+  typeTest: {
+    type: {{selectedSchemaType}},
+    autoform: {
+      type: "{{selectedType}}",
+      options: function () {
+        return [
+          {label: "2013", value: 2013},
+          {label: "2014", value: 2014},
+          {label: "2015", value: 2015}
+        ];
+      }
+    }
+  }
+}</pre>
+{{else}}
 <pre>{
   typeTest: {
     type: {{selectedSchemaType}},
@@ -85,6 +105,7 @@
     }
   }
 }</pre>
+{{/if}}
         </div>
       </div>
       <div class="panel panel-default">
@@ -130,7 +151,7 @@
         </div>
         <div class="panel-body">
 <pre>&#123;&#123;#autoForm id="types2" schema=typesSchema2&#125;&#125;
-  &#123;&#123;&gt; afFormGroup name="typeTest" type="{{selectedType}}"&#125;&#125;
+  &#123;&#123;&gt; afFormGroup name="typeTest" type="{{selectedType}}" {{#if showOptions}}options=optionsHelper{{/if}}&#125;&#125;
   &lt;div class="form-group"&gt;
     &lt;button type="submit" class="btn btn-primary"&gt;Submit&lt;/button&gt;
   &lt;/div&gt;
@@ -145,7 +166,7 @@
         </div>
         <div class="panel-body">
           {{#autoForm id="types2" schema=typesSchema2}}
-            {{> afFormGroup name="typeTest" type=selectedType}}
+            {{> afFormGroup name="typeTest" type=selectedType options=optionsHelper}}
             <div class="form-group">
               <button type="submit" class="btn btn-primary">Submit</button>
             </div>
@@ -178,7 +199,7 @@
         <div class="panel-body">
 <pre>&#123;&#123;#autoForm id="types3" schema=typesSchema2&#125;&#125;
   &lt;div class="form-group"&gt;
-  &#123;&#123;&gt; afFieldInput name="typeTest" type="{{selectedType}}"&#125;&#125;
+  &#123;&#123;&gt; afFieldInput name="typeTest" type="{{selectedType}}" {{#if showOptions}}options=optionsHelper{{/if}}&#125;&#125;
   &lt;/div&gt;
   &lt;div class="form-group"&gt;
     &lt;button type="submit" class="btn btn-primary"&gt;Submit&lt;/button&gt;
@@ -195,7 +216,7 @@
         <div class="panel-body">
           {{#autoForm id="types3" schema=typesSchema2}}
             <div class="form-group">
-              {{> afFieldInput name="typeTest" type=selectedType}}
+              {{> afFieldInput name="typeTest" type=selectedType options=optionsHelper}}
             </div>
             <div class="form-group">
               <button type="submit" class="btn btn-primary">Submit</button>

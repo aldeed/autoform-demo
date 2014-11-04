@@ -17,10 +17,13 @@ mizzao:bootstrap-3
 dburles:collection-helpers
 aldeed:collection2
 sacha:spin
-aldeed:autoform@4.0.0-rc9
 zimme:iron-router-active
 reactive-var
 aldeed:delete-button
 rajit:bootstrap3-datepicker
 aldeed:autoform-bs-datepicker
+aldeed:autoform-select2
+natestrauser:select2
+aldeed:autoform@4.0.0-rc10
+zimme:select2-bootstrap3-css
 
