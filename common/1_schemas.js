@@ -30,6 +30,18 @@ Schemas.Item = new SimpleSchema({
   }
 });
 
+Schemas.Select = new SimpleSchema({
+  favoriteYear: {
+    type: Number
+  }
+});
+
+Schemas.SelectMultiple = new SimpleSchema({
+  favoriteYears: {
+    type: [Number]
+  }
+});
+
 Schemas.FieldsExamples = new SimpleSchema({
   name: {
     type: String

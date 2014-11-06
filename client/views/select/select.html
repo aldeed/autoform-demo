@@ -1,0 +1,132 @@
+<template name="select">
+  <p>When you use an input with type "select" or "select-multiple", you can mix option groups with options. Here are some examples. (Prior to 4.0, there was an `afFieldSelect` block component, which didn't work well and is no longer available.)</p>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">&#123;&#123;#autoForm id="selectForm" schema=Schemas.Select&#125;&#125;
+  &#123;&#123;&gt; afFormGroup name="favoriteYear" options=options&#125;&#125;
+  &lt;button type="submit" class="btn btn-primary"&gt;Submit&lt;/button&gt;
+&#123;&#123;/autoForm&#125;&#125;</pre>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>JavaScript</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">Schemas.Select = new SimpleSchema({
+  favoriteYear: {
+    type: Number
+  }
+});
+
+Template.select.helpers({
+  options: function () {
+    return [
+      {
+        optgroup: "Fun Years",
+        options: [
+          {label: "2014", value: 2014},
+          {label: "2013", value: 2013},
+          {label: "2012", value: 2012}
+        ]
+      },
+      {
+        optgroup: "Boring Years",
+        options: [
+          {label: "2011", value: 2011},
+          {label: "2010", value: 2010},
+          {label: "2009", value: 2009}
+        ]
+      }
+    ];
+  }
+});</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+          {{#autoForm id="selectForm" schema=Schemas.Select}}
+            {{> afFormGroup name="favoriteYear" options=options}}
+            <button type="submit" class="btn btn-primary">Submit</button>
+          {{/autoForm}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">&#123;&#123;#autoForm id="selectForm2" schema=Schemas.SelectMultiple&#125;&#125;
+  &#123;&#123;&gt; afFormGroup name="favoriteYears" options=options&#125;&#125;
+  &lt;button type="submit" class="btn btn-primary"&gt;Submit&lt;/button&gt;
+&#123;&#123;/autoForm&#125;&#125;</pre>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>JavaScript</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">Schemas.SelectMultiple = new SimpleSchema({
+  favoriteYears: {
+    type: [Number]
+  }
+});
+
+Template.select.helpers({
+  options: function () {
+    return [
+      {
+        optgroup: "Fun Years",
+        options: [
+          {label: "2014", value: 2014},
+          {label: "2013", value: 2013},
+          {label: "2012", value: 2012}
+        ]
+      },
+      {
+        optgroup: "Boring Years",
+        options: [
+          {label: "2011", value: 2011},
+          {label: "2010", value: 2010},
+          {label: "2009", value: 2009}
+        ]
+      }
+    ];
+  }
+});</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+          {{#autoForm id="selectForm2" schema=Schemas.SelectMultiple}}
+            {{> afFormGroup name="favoriteYears" options=options}}
+            <button type="submit" class="btn btn-primary">Submit</button>
+          {{/autoForm}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
