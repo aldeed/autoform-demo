@@ -4,33 +4,16 @@ Router.configure({
   layoutTemplate: 'layout'
 });
 
-Router.onBeforeAction('loading');
-
-Router.map(function() {
-  this.route('home', {
-    path: '/'
-  });
-
-  this.route('quickform');
-  this.route('fieldvalues');
-  this.route('insertaf');
-  this.route('qfdetails');
-  this.route('types');
-  this.route('select');
-  this.route('update-each', {
-    waitOn: function () {
-      return Meteor.subscribe("allItems");
-    }
-  });
+Router.route('/', {name: 'home'});
+Router.route('/quickform', {name: 'quickform'});
+Router.route('/fieldvalues', {name: 'fieldvalues'});
+Router.route('/insertaf', {name: 'insertaf'});
+Router.route('/qfdetails', {name: 'qfdetails'});
+Router.route('/types', {name: 'types'});
+Router.route('/select', {name: 'select'});
+Router.route('/update-each', {
+  name: 'update-each',
+  waitOn: function () {
+    return Meteor.subscribe("allItems");
+  }
 });
-
-if (Meteor.isClient) {
-  // Scroll to top or requested hash after loading each page
-  Router.onAfterAction(function() {
-      Meteor.setTimeout(function () {
-        var hash = $(window.location.hash);
-        var scrollTo = hash.length ? hash.offset().top : 0;
-        $("html, body").animate({ scrollTop: scrollTo }, AppConfig.scrollSpeed, AppConfig.scrollEasing);
-      }, 0);
-  });
-}
