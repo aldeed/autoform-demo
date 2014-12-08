@@ -38,7 +38,7 @@
         <div class="panel-body">
 <pre class="pre-scrollable">Schemas = {};
 
-UI.registerHelper("Schemas", Schemas);
+Template.registerHelper("Schemas", Schemas);
 
 Schemas.Item = new SimpleSchema({
   name: {
@@ -54,7 +54,7 @@ Schemas.Item = new SimpleSchema({
 
 var Collections = {};
 
-UI.registerHelper("Collections", Collections);
+Template.registerHelper("Collections", Collections);
 
 Items = Collections.Items = new Mongo.Collection("Items");
 Items.attachSchema(Schemas.Item);

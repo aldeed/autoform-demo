@@ -1,0 +1,146 @@
+<template name="updateaf">
+  <p>This is an example of using <code>autoForm</code> to create a form that updates a collection. It uses Bootstrap styles.</p>
+  <p>Toggle the check box to change whether it should automatically update the doc whenever a field changes, or wait until you click Submit.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">&#123;&#123;#autoForm id="afUpdateDemo" type=formType collection=Collections.People doc=selectedPersonDoc autosave=autoSaveMode&#125;&#125;
+  &#123;&#123;&gt; afQuickField name="firstName"&#125;&#125;
+  &#123;&#123;&gt; afQuickField name="lastName"&#125;&#125;
+  &#123;&#123;&gt; afQuickField name="age"&#125;&#125;
+  &#123;&#123;#unless autoSaveMode&#125;&#125;
+  &lt;div class="form-group"&gt;
+    &lt;button type="submit" class="btn btn-primary" disabled="&#123;&#123;disableButtons&#125;&#125;"&gt;Submit&lt;/button&gt;
+    &lt;button type="reset" class="btn btn-default" disabled="&#123;&#123;disableButtons&#125;&#125;"&gt;Reset Form&lt;/button&gt;
+  &lt;/div&gt;
+  &#123;&#123;/unless&#125;&#125;
+&#123;&#123;/autoForm&#125;&#125;</pre>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>JavaScript</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">Schemas = {};
+
+Template.registerHelper("Schemas", Schemas);
+
+Schemas.Person = new SimpleSchema({
+  firstName: {
+    type: String,
+    index: 1,
+    unique: true
+  },
+  lastName: {
+    type: String,
+    optional: true
+  },
+  age: {
+    type: Number,
+    optional: true
+  }
+});
+
+var Collections = {};
+
+Template.registerHelper("Collections", Collections);
+
+People = Collections.People = new Mongo.Collection("People");
+People.attachSchema(Schemas.Person);
+
+Meteor.publish(null, function () {
+  return People.find();
+});
+
+People.allow({
+  insert: function () {
+    return true;
+  },
+  remove: function () {
+    return true;
+  }
+});
+
+Template.updateaf.helpers({
+  autoSaveMode: function () {
+    return Session.get("autoSaveMode") ? true : false;
+  },
+  selectedPersonDoc: function () {
+    return People.findOne(Session.get("selectedPersonId"));
+  },
+  isSelectedPerson: function () {
+    return Session.equals("selectedPersonId", this._id);
+  },
+  formType: function () {
+    if (Session.get("selectedPersonId")) {
+      return "update";
+    } else {
+      return "disabled";
+    }
+  },
+  disableButtons: function () {
+    return !Session.get("selectedPersonId");
+  }
+});
+
+Template.updateaf.events({
+  'click .person-row': function () {
+    Session.set("selectedPersonId", this._id);
+  },
+  'change .autosave-toggle': function () {
+    Session.set("autoSaveMode", !Session.get("autoSaveMode"));
+  }
+});</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h2>People List</h2>
+      <p>Choose a person to edit. If there are none listed, go to the "Insert autoForm" page and add some.</p>
+      <table class="table table-bordered table-condensed">
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>Age</td>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each people}}
+            <tr class="person-row {{#if isSelectedPerson}}selected{{/if}}">
+              <td>{{firstName}} {{lastName}}</td>
+              <td>{{age}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <div class="form-group">
+        <label><input type="checkbox" class="autosave-toggle" value="" checked="{{autoSaveMode}}"> autosave?</label>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+          {{#unless destroyForm}}
+            {{#autoForm id="afUpdateDemo" type=formType collection=Collections.People doc=selectedPersonDoc autosave=autoSaveMode}}
+              {{> afQuickField name="firstName"}}
+              {{> afQuickField name="lastName"}}
+              {{> afQuickField name="age"}}
+              {{#unless autoSaveMode}}
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary" disabled="{{disableButtons}}">Submit</button>
+                <button type="reset" class="btn btn-default" disabled="{{disableButtons}}">Reset Form</button>
+              </div>
+              {{/unless}}
+            {{/autoForm}}
+          {{/unless}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,6 +1,6 @@
 Schemas = {};
 
-UI.registerHelper("Schemas", Schemas);
+Meteor.isClient && Template.registerHelper("Schemas", Schemas);
 
 Schemas.Person = new SimpleSchema({
   firstName: {

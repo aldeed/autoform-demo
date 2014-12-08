@@ -1,0 +1,7 @@
+.person-row {
+  cursor: pointer;
+}
+
+.person-row.selected {
+  background-color: #ccc;
+}
