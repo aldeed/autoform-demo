@@ -44,6 +44,7 @@
           </optgroup>
           <optgroup label="Add-On Packages">
             <option value="bootstrap-datepicker">bootstrap-datepicker</option>
+            <option value="bootstrap-datetimepicker">bootstrap-datetimepicker</option>
             <option value="select2">select2</option>
           </optgroup>
         </select>
@@ -84,6 +85,7 @@
 <pre>{
   typeTest: {
     type: {{selectedSchemaType}},
+    optional: true,
     autoform: {
       type: "{{selectedType}}",
       options: function () {
@@ -100,8 +102,11 @@
 <pre>{
   typeTest: {
     type: {{selectedSchemaType}},
+    optional: true,
     autoform: {
-      type: "{{selectedType}}"
+      afFieldInput: {
+        type: "{{selectedType}}"
+      }
     }
   }
 }</pre>
@@ -140,7 +145,8 @@
         <div class="panel-body">
 <pre>{
   typeTest: {
-    type: {{selectedSchemaType}}
+    type: {{selectedSchemaType}},
+    optional: true
   }
 }</pre>
         </div>
@@ -187,7 +193,8 @@
         <div class="panel-body">
 <pre>{
   typeTest: {
-    type: {{selectedSchemaType}}
+    type: {{selectedSchemaType}},
+    optional: true
   }
 }</pre>
         </div>

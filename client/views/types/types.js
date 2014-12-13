@@ -9,6 +9,7 @@ Template.types.helpers({
     return new SimpleSchema({
       typeTest: {
         type: sst,
+        optional: true,
         autoform: {
           type: st,
           options: function () {
@@ -26,7 +27,8 @@ Template.types.helpers({
     var sst = selectedSchemaType.get();
     return new SimpleSchema({
       typeTest: {
-        type: sst
+        type: sst,
+        optional: true
       }
     });
   },

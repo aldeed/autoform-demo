@@ -11,7 +11,8 @@ accounts-password
 accounts-ui
 mrt:jquery-easing
 iron:router
-mrt:moment
+momentjs:moment
+mrt:moment-timezone
 mrt:numeral
 mizzao:bootstrap-3
 dburles:collection-helpers
@@ -27,4 +28,6 @@ natestrauser:select2
 aldeed:autoform
 zimme:select2-bootstrap3-css
 aldeed:autoform-bs-button-group-input
-
+tsega:bootstrap3-datetimepicker
+aldeed:autoform-bs-datetimepicker
+aldeed:template-extension
