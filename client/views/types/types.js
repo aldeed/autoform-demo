@@ -51,7 +51,8 @@ Template.types.helpers({
       "select-checkbox-inline",
       "select-radio",
       "select-radio-inline",
-      "select2"
+      "select2",
+      "selectize"
     ], t);
   },
   optionsHelper: function () {
