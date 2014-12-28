@@ -20,7 +20,9 @@ blaze@2.0.3
 boilerplate-generator@1.0.1
 callback-hook@1.0.1
 check@1.0.2
+chhib:selectize-bootstrap-3@0.0.1
 coffeescript@1.0.4
+comerc:autoform-selectize@1.0.0
 ctl-helper@1.0.4
 ctl@1.0.2
 dburles:collection-helpers@1.0.1
@@ -43,6 +45,7 @@ iron:location@1.0.3
 iron:middleware-stack@1.0.3
 iron:router@1.0.3
 iron:url@1.0.3
+jeremy:selectize@0.2.0
 jquery@1.0.1
 json@1.0.1
 launch-screen@1.0.0
