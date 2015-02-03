@@ -52,7 +52,8 @@ Template.types.helpers({
       "select-radio",
       "select-radio-inline",
       "select2",
-      "selectize"
+      "selectize",
+      "typeahead"
     ], t);
   },
   optionsHelper: function () {
