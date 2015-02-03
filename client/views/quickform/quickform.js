@@ -172,7 +172,7 @@ function prettyPrint(obj) {
       }
       buffer += strRep || obj.toString();
     } else if(toString.call(obj) == "[object Function]"){
-        buffer += "[Function] " + obj;
+        buffer += obj;
     } else if(toString.call(obj) == "[object Array]"){
         var idx = 0, len = obj.length;
         buffer += "[";
