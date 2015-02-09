@@ -126,19 +126,17 @@ Template.updateaf.events({
           <h4>Rendered Form</h4>
         </div>
         <div class="panel-body">
-          {{#unless destroyForm}}
-            {{#autoForm id="afUpdateDemo" type=formType collection=Collections.People doc=selectedPersonDoc autosave=autoSaveMode}}
-              {{> afQuickField name="firstName"}}
-              {{> afQuickField name="lastName"}}
-              {{> afQuickField name="age"}}
-              {{#unless autoSaveMode}}
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary" disabled="{{disableButtons}}">Submit</button>
-                <button type="reset" class="btn btn-default" disabled="{{disableButtons}}">Reset Form</button>
-              </div>
-              {{/unless}}
-            {{/autoForm}}
-          {{/unless}}
+          {{#autoForm id="afUpdateDemo" type=formType collection=Collections.People doc=selectedPersonDoc autosave=autoSaveMode}}
+            {{> afQuickField name="firstName"}}
+            {{> afQuickField name="lastName"}}
+            {{> afQuickField name="age"}}
+            {{#unless autoSaveMode}}
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" disabled="{{disableButtons}}">Submit</button>
+              <button type="reset" class="btn btn-default" disabled="{{disableButtons}}">Reset Form</button>
+            </div>
+            {{/unless}}
+          {{/autoForm}}
         </div>
       </div>
     </div>

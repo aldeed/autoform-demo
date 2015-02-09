@@ -1,5 +1,4 @@
 Session.setDefault("autoSaveMode", false);
-Session.setDefault("destroyUpdateForm", false);
 
 Template.updateaf.helpers({
   people: function () {
@@ -23,19 +22,12 @@ Template.updateaf.helpers({
   },
   disableButtons: function () {
     return !Session.get("selectedPersonId");
-  },
-  destroyForm: function () {
-    return Session.get("destroyUpdateForm");
   }
 });
 
 Template.updateaf.events({
   'click .person-row': function () {
     Session.set("selectedPersonId", this._id);
-
-    Session.set("destroyUpdateForm", true);
-    Tracker.flush();
-    Session.set("destroyUpdateForm", false);
   },
   'change .autosave-toggle': function () {
     Session.set("autoSaveMode", !Session.get("autoSaveMode"));
