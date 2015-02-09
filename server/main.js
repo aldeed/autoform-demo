@@ -14,4 +14,11 @@ Meteor.startup(function () {
     });
     
   }
+
+  PeopleWithContacts.remove({});
+  PeopleWithContacts.insert({
+    firstName: 'Albert',
+    lastName: 'Einstein',
+    age: new Date().getFullYear() - 1879
+  });
 });

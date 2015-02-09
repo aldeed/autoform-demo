@@ -90,3 +90,32 @@ Schemas.FieldsExamples = new SimpleSchema({
     type: String
   }
 });
+
+Schemas.PersonWithContacts = new SimpleSchema({
+  firstName: {
+    type: String,
+    index: 1,
+    unique: true
+  },
+  lastName: {
+    type: String,
+    optional: true
+  },
+  age: {
+    type: Number,
+    optional: true
+  },
+  contacts: {
+    type: Array,
+    optional: true
+  },
+  'contacts.$': {
+    type: Object
+  },
+  'contacts.$.name': {
+    type: String
+  },
+  'contacts.$.phone': {
+    type: String
+  }
+});

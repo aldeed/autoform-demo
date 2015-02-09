@@ -15,3 +15,9 @@ Items.allow({
     return true;
   }
 });
+
+PeopleWithContacts.allow({
+  update: function () {
+    return true;
+  }
+});

@@ -18,3 +18,6 @@ Router.route('/update-each', {
     return Meteor.subscribe("allItems");
   }
 });
+Router.route('/updatepush', {
+  name: 'updatepush'
+});

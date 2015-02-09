@@ -1,0 +1,104 @@
+<template name="updatepush">
+  <p>When you need a form that represents an object that needs to get added to an array field in the document, you can use the <code>update-pushArray</code> form type. This type of form is like a hybrid of insert and update forms. It's generated and validated as though you're inserting a document, but upon submission that document is added to an array within an existing document.</p>
+  <p>Creating an <code>update-pushArray</code> form is much like creating an update form, but you must additionally define a <code>scope</code> attribute that determines the array field into which the resulting document will be pushed.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">&#123;&#123;&gt; quickForm id="updatePushForm" type="update-pushArray" collection=Collections.PeopleWithContacts doc=exampleDoc scope="contacts"&#125;&#125;</pre>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>JavaScript</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">Schemas = {};
+
+Template.registerHelper("Schemas", Schemas);
+
+Schemas.PersonWithContacts = new SimpleSchema({
+  firstName: {
+    type: String,
+    index: 1,
+    unique: true
+  },
+  lastName: {
+    type: String,
+    optional: true
+  },
+  age: {
+    type: Number,
+    optional: true
+  },
+  contacts: {
+    type: Array,
+    optional: true
+  },
+  'contacts.$': {
+    type: Object
+  },
+  'contacts.$.name': {
+    type: String
+  },
+  'contacts.$.phone': {
+    type: String
+  }
+});
+
+var Collections = {};
+
+Template.registerHelper("Collections", Collections);
+
+PeopleWithContacts = Collections.PeopleWithContacts = new Mongo.Collection("PeopleWithContacts");
+PeopleWithContacts.attachSchema(Schemas.PersonWithContacts);
+
+Meteor.publish(null, function () {
+  return PeopleWithContacts.find();
+});
+
+PeopleWithContacts.allow({
+  update: function () {
+    return true;
+  }
+});
+
+Template.updatepush.helpers({
+  exampleDoc: function () {
+    return PeopleWithContacts.findOne();
+  }
+});</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+          {{> quickForm id="updatePushForm" type="update-pushArray" collection=Collections.PeopleWithContacts doc=exampleDoc scope="contacts"}}
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>The Form Document</h4>
+        </div>
+        <div class="panel-body">
+          {{#with exampleDoc}}
+          <p><strong>First Name:</strong> {{firstName}}</p>
+          <p><strong>Last Name:</strong> {{lastName}}</p>
+          <p><strong>Age:</strong> {{age}}</p>
+          <p><strong>Contacts:</strong></p>
+          {{#each contacts}}
+            <p>{{name}} ({{phone}})</p>
+          {{/each}}
+          {{/with}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

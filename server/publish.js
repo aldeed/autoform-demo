@@ -1,5 +1,8 @@
 Meteor.publish(null, function () {
-  return People.find();
+  return [
+    People.find(),
+    PeopleWithContacts.find()
+  ];
 });
 
 Meteor.publish("allItems", function () {
