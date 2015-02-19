@@ -6,6 +6,11 @@ FieldValueIs.attachSchema(new SimpleSchema({
   },
   b: {
     type: String
+  },
+  c: {
+    type: [String],
+    minCount: 1,
+    maxCount: 3
   }
 }));
 
@@ -21,5 +26,9 @@ FieldValueContains.attachSchema(new SimpleSchema({
 }));
 
 Template.registerHelper("currentFieldValue", function (fieldName) {
-  return AutoForm.getFieldValue("reactiveCurrentValueForm", fieldName) || "not selected";
+  return AutoForm.getFieldValue(fieldName) || "not selected";
+});
+
+Template.registerHelper("currentFieldValue2", function (fieldName) {
+  return AutoForm.getFieldValue(fieldName) || "empty";
 });

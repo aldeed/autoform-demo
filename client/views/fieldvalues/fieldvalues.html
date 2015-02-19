@@ -164,6 +164,8 @@ Template.registerHelper("currentFieldValue", function (fieldName) {
 <template name="reactiveCurrentValue">
   {{#autoForm collection="FieldValueIs" type="insert" id="reactiveCurrentValueForm"}}
   {{> afQuickField name="a" options="allowed" noselect=true}}
+  {{> afQuickField name="c"}}
   <p>The current value of the "A" field is {{currentFieldValue "a"}}.</p>
+  <p>The current value of the "C" field is {{currentFieldValue2 "c"}}.</p>
   {{/autoForm}}
 </template>
