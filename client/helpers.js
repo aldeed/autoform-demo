@@ -37,3 +37,7 @@ Helpers.equals = function (a, b) {
 Helpers.contains = function (a, b) {
   return _.contains(a, b);
 };
+
+Helpers.stringifyObj = function (obj) {
+  return JSON.stringify(obj, null, 2);
+};

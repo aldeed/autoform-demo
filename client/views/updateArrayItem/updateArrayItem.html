@@ -1,0 +1,109 @@
+<template name="updateArrayItem">
+  <p>This is an example of using <code>autoForm</code> to create a form that updates a single index (in this case, 2) of an array of objects in a document. It uses Bootstrap styles.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>HTML</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">&#123;&#123;#autoForm id="updateArrayItemDemo" type="update" collection=Collections.PeopleWithContacts doc=exampleDoc&#125;&#125;
+  &#123;&#123;&gt; afQuickField name="contacts.2.name"&#125;&#125;
+  &#123;&#123;&gt; afQuickField name="contacts.2.phone"&#125;&#125;
+  &lt;div class="form-group"&gt;
+    &lt;button type="submit" class="btn btn-primary"&gt;Submit&lt;/button&gt;
+    &lt;button type="reset" class="btn btn-default"&gt;Reset Form&lt;/button&gt;
+  &lt;/div&gt;
+&#123;&#123;/autoForm&#125;&#125;</pre>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>JavaScript</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">Schemas = {};
+
+Template.registerHelper("Schemas", Schemas);
+
+Schemas.PersonWithContacts = new SimpleSchema({
+  firstName: {
+    type: String,
+    index: 1,
+    unique: true
+  },
+  lastName: {
+    type: String,
+    optional: true
+  },
+  age: {
+    type: Number,
+    optional: true
+  },
+  contacts: {
+    type: Array,
+    optional: true
+  },
+  'contacts.$': {
+    type: Object
+  },
+  'contacts.$.name': {
+    type: String
+  },
+  'contacts.$.phone': {
+    type: String
+  }
+});
+
+var Collections = {};
+
+Template.registerHelper("Collections", Collections);
+
+PeopleWithContacts = Collections.PeopleWithContacts = new Mongo.Collection("PeopleWithContacts");
+PeopleWithContacts.attachSchema(Schemas.PersonWithContacts);
+
+Meteor.publish(null, function () {
+  return PeopleWithContacts.find();
+});
+
+PeopleWithContacts.allow({
+  update: function () {
+    return true;
+  }
+});
+
+Template.updateArrayItem.helpers({
+  exampleDoc: function () {
+    return PeopleWithContacts.findOne({firstName: 'Winston'});
+  }
+});</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rendered Form</h4>
+        </div>
+        <div class="panel-body">
+          {{#autoForm id="updateArrayItemDemo" type="update" collection=Collections.PeopleWithContacts doc=exampleDoc}}
+            {{> afQuickField name="contacts.2.name"}}
+            {{> afQuickField name="contacts.2.phone"}}
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="reset" class="btn btn-default">Reset Form</button>
+            </div>
+          {{/autoForm}}
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>The Current Document</h4>
+        </div>
+        <div class="panel-body">
+<pre class="pre-scrollable">{{Helpers.stringifyObj exampleDoc}}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

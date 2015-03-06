@@ -21,3 +21,6 @@ Router.route('/update-each', {
 Router.route('/updatepush', {
   name: 'updatepush'
 });
+Router.route('/update-array-item', {
+  name: 'updateArrayItem'
+});
