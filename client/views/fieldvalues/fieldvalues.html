@@ -104,7 +104,9 @@ FieldValueContains.attachSchema(new SimpleSchema({
         <div class="panel-body">
 <pre class="pre-scrollable">&#123;&#123;#autoForm collection="FieldValueIs" type="insert" id="reactiveCurrentValueForm"&#125;&#125;
   &#123;&#123;> afQuickField name="a" options="allowed" noselect=true&#125;&#125;
+  &#123;&#123;> afQuickField name="c"&#125;&#125;
   &lt;p&gt;The current value of the "A" field is &#123;&#123;currentFieldValue "a"&#125;&#125;.&lt;/p&gt;
+  &lt;p&gt;The current value of the "C" field is &#123;&#123;currentFieldValue2 "c"&#125;&#125;.&lt;/p&gt;
 &#123;&#123;/autoForm&#125;&#125;</pre>
         </div>
       </div>
@@ -126,6 +128,10 @@ FieldValueIs.attachSchema(new SimpleSchema({
 
 Template.registerHelper("currentFieldValue", function (fieldName) {
   return AutoForm.getFieldValue("reactiveCurrentValueForm", fieldName) || "not selected";
+});
+
+Template.registerHelper("currentFieldValue2", function (fieldName) {
+  return AutoForm.getFieldValue(fieldName) || "empty";
 });</pre>
         </div>
       </div>
