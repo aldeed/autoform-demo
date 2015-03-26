@@ -1,5 +1,5 @@
 <template name="updateArrayItem">
-  <p>This is an example of using <code>autoForm</code> to create a form that updates a single index (in this case, 2) of an array of objects in a document. It uses Bootstrap styles.</p>
+  <p>This is an example of using <code>autoForm</code> to create a form that updates a single index (in this case, 2) of an array of objects in a document. It uses Bootstrap styles. Note that you must set `setArrayItems=true` for it to work properly.</p>
   <div class="row">
     <div class="col-md-6">
       <div class="panel panel-default">
@@ -7,7 +7,7 @@
           <h4>HTML</h4>
         </div>
         <div class="panel-body">
-<pre class="pre-scrollable">&#123;&#123;#autoForm id="updateArrayItemDemo" type="update" collection=Collections.PeopleWithContacts doc=exampleDoc&#125;&#125;
+<pre class="pre-scrollable">&#123;&#123;#autoForm id="updateArrayItemDemo" type="update" collection=Collections.PeopleWithContacts doc=exampleDoc setArrayItems=true&#125;&#125;
   &#123;&#123;&gt; afQuickField name="contacts.2.name"&#125;&#125;
   &#123;&#123;&gt; afQuickField name="contacts.2.phone"&#125;&#125;
   &lt;div class="form-group"&gt;
@@ -86,7 +86,7 @@ Template.updateArrayItem.helpers({
           <h4>Rendered Form</h4>
         </div>
         <div class="panel-body">
-          {{#autoForm id="updateArrayItemDemo" type="update" collection=Collections.PeopleWithContacts doc=exampleDoc}}
+          {{#autoForm id="updateArrayItemDemo" type="update" collection=Collections.PeopleWithContacts doc=exampleDoc setArrayItems=true}}
             {{> afQuickField name="contacts.2.name"}}
             {{> afQuickField name="contacts.2.phone"}}
             <div class="form-group">
