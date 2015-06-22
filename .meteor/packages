@@ -3,12 +3,17 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-standard-app-packages
+meteor-platform
+
+# Core
 underscore
 jquery
 spiderable
 accounts-password
 accounts-ui
+reactive-var
+
+# Community
 mrt:jquery-easing
 iron:router
 momentjs:moment
@@ -18,8 +23,7 @@ mizzao:bootstrap-3
 dburles:collection-helpers
 aldeed:collection2
 sacha:spin
-zimme:iron-router-active
-reactive-var
+zimme:active-route
 aldeed:delete-button
 rajit:bootstrap3-datepicker
 aldeed:autoform-bs-datepicker
@@ -33,3 +37,4 @@ chhib:selectize-bootstrap-3
 comerc:bs-typeahead
 comerc:autoform-typeahead
 comerc:autoform-selectize
+vazco:universe-autoform-select
