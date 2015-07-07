@@ -5,7 +5,7 @@ Template.updateaf.helpers({
     return People.find();
   },
   autoSaveMode: function () {
-    return Session.get("autoSaveMode") ? true : false;
+    return Session.get("autoSaveMode");
   },
   selectedPersonDoc: function () {
     return People.findOne(Session.get("selectedPersonId"));
