@@ -17,7 +17,7 @@ reactive-var
 mrt:jquery-easing
 iron:router
 momentjs:moment
-mrt:moment-timezone
+aldeed:moment-timezone
 mrt:numeral
 mizzao:bootstrap-3
 dburles:collection-helpers
