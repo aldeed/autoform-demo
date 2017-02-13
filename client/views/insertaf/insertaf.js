@@ -1,5 +1,5 @@
 Template.insertaf.helpers({
-  people: function () {
+  people() {
     return People.find();
   }
 });

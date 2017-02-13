@@ -1,6 +1,14 @@
+import SimpleSchema from 'simpl-schema';
+import { Tracker } from 'meteor/tracker';
+
+// Required AutoForm setup
+SimpleSchema.extendOptions(['autoform']);
+
+SimpleSchema.debug = true; //uncomment to help when developing, comment when deploying
+
 Schemas = {};
 
-Meteor.isClient && Template.registerHelper("Schemas", Schemas);
+Meteor.isClient && Template.registerHelper('Schemas', Schemas);
 
 Schemas.Person = new SimpleSchema({
   firstName: {
@@ -13,10 +21,10 @@ Schemas.Person = new SimpleSchema({
     optional: true
   },
   age: {
-    type: Number,
+    type: SimpleSchema.Integer,
     optional: true
   }
-});
+}, { tracker: Tracker });
 
 Schemas.Item = new SimpleSchema({
   name: {
@@ -28,19 +36,15 @@ Schemas.Item = new SimpleSchema({
     type: String,
     optional: true
   }
-});
+}, { tracker: Tracker });
 
 Schemas.Select = new SimpleSchema({
-  favoriteYear: {
-    type: Number
-  }
-});
+  favoriteYear: SimpleSchema.Integer
+}, { tracker: Tracker });
 
 Schemas.SelectMultiple = new SimpleSchema({
-  favoriteYears: {
-    type: [Number]
-  }
-});
+  favoriteYears: [SimpleSchema.Integer]
+}, { tracker: Tracker });
 
 Schemas.FieldsExamples = new SimpleSchema({
   name: {
@@ -65,31 +69,25 @@ Schemas.FieldsExamples = new SimpleSchema({
   },
   'address.state': {
     type: String,
-    allowedValues: ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
+    allowedValues: ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'],
     autoform: {
       afFieldInput: {
-        firstOption: "(Select a State)"
+        firstOption: '(Select a State)'
       }
     }
   },
   'address.postalCode': {
     type: String,
-    label: "ZIP"
+    label: 'ZIP'
   },
   contacts: {
     type: Array,
     optional: true
   },
-  'contacts.$': {
-    type: Object
-  },
-  'contacts.$.name': {
-    type: String
-  },
-  'contacts.$.phone': {
-    type: String
-  }
-});
+  'contacts.$': Object,
+  'contacts.$.name': String,
+  'contacts.$.phone': String,
+}, { tracker: Tracker });
 
 Schemas.PersonWithContacts = new SimpleSchema({
   firstName: {
@@ -102,20 +100,14 @@ Schemas.PersonWithContacts = new SimpleSchema({
     optional: true
   },
   age: {
-    type: Number,
+    type: SimpleSchema.Integer,
     optional: true
   },
   contacts: {
     type: Array,
     optional: true
   },
-  'contacts.$': {
-    type: Object
-  },
-  'contacts.$.name': {
-    type: String
-  },
-  'contacts.$.phone': {
-    type: String
-  }
-});
+  'contacts.$': Object,
+  'contacts.$.name': String,
+  'contacts.$.phone': String,
+}, { tracker: Tracker });

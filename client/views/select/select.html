@@ -18,14 +18,15 @@
           <h4>JavaScript</h4>
         </div>
         <div class="panel-body">
-<pre class="pre-scrollable">Schemas.Select = new SimpleSchema({
-  favoriteYear: {
-    type: Number
-  }
-});
+<pre class="pre-scrollable">import SimpleSchema from 'simpl-schema';
+import { Tracker } from 'meteor/tracker';
+
+Schemas.Select = new SimpleSchema({
+  favoriteYear: SimpleSchema.Integer,
+}, { tracker: Tracker });
 
 Template.select.helpers({
-  options: function () {
+  options() {
     return [
       {
         optgroup: "Fun Years",
@@ -84,14 +85,15 @@ Template.select.helpers({
           <h4>JavaScript</h4>
         </div>
         <div class="panel-body">
-<pre class="pre-scrollable">Schemas.SelectMultiple = new SimpleSchema({
-  favoriteYears: {
-    type: [Number]
-  }
-});
+<pre class="pre-scrollable">import SimpleSchema from 'simpl-schema';
+import { Tracker } from 'meteor/tracker';
+
+Schemas.SelectMultiple = new SimpleSchema({
+  favoriteYears: [SimpleSchema.Integer]
+}, { tracker: Tracker });
 
 Template.select.helpers({
-  options: function () {
+  options() {
     return [
       {
         optgroup: "Fun Years",

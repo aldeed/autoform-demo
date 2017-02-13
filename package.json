@@ -1,0 +1,34 @@
+{
+  "name": "autoform-demo",
+  "version": "1.0.0",
+  "description": "AutoForm demo app",
+  "main": "index.js",
+  "scripts": {
+    "start": "meteor",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aldeed/autoform-demo.git"
+  },
+  "author": "Eric Dobbertin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aldeed/autoform-demo/issues"
+  },
+  "homepage": "https://github.com/aldeed/autoform-demo#readme",
+  "dependencies": {
+    "babel-runtime": "6.22.0",
+    "bcrypt": "1.0.2",
+    "meteor-node-stubs": "0.2.5",
+    "moment": "2.17.1",
+    "moment-timezone": "0.5.11",
+    "simpl-schema": "0.2.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "7.1.1",
+    "eslint": "2.2.0",
+    "eslint-config-airbnb": "6.0.2",
+    "eslint-plugin-react": "4.2.0"
+  }
+}

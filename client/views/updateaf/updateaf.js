@@ -1,35 +1,32 @@
-Session.setDefault("autoSaveMode", false);
+Session.setDefault('autoSaveMode', false);
 
 Template.updateaf.helpers({
-  people: function () {
+  people() {
     return People.find();
   },
-  autoSaveMode: function () {
-    return Session.get("autoSaveMode");
+  autoSaveMode() {
+    return Session.get('autoSaveMode');
   },
-  selectedPersonDoc: function () {
-    return People.findOne(Session.get("selectedPersonId"));
+  selectedPersonDoc() {
+    return People.findOne(Session.get('selectedPersonId'));
   },
-  isSelectedPerson: function () {
-    return Session.equals("selectedPersonId", this._id);
+  isSelectedPerson() {
+    return Session.equals('selectedPersonId', this._id);
   },
-  formType: function () {
-    if (Session.get("selectedPersonId")) {
-      return "update";
-    } else {
-      return "disabled";
-    }
+  formType() {
+    if (Session.get('selectedPersonId')) return 'update';
+    return 'disabled';
   },
-  disableButtons: function () {
-    return !Session.get("selectedPersonId");
+  disableButtons() {
+    return !Session.get('selectedPersonId');
   }
 });
 
 Template.updateaf.events({
-  'click .person-row': function () {
-    Session.set("selectedPersonId", this._id);
+  'click .person-row'() {
+    Session.set('selectedPersonId', this._id);
   },
-  'change .autosave-toggle': function () {
-    Session.set("autoSaveMode", !Session.get("autoSaveMode"));
+  'change .autosave-toggle'() {
+    Session.set('autoSaveMode', !Session.get('autoSaveMode'));
   }
 });

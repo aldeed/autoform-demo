@@ -36,9 +36,13 @@
           <h4>JavaScript</h4>
         </div>
         <div class="panel-body">
-<pre class="pre-scrollable">Schemas = {};
+<pre class="pre-scrollable">import SimpleSchema from 'simpl-schema';
+import { Mongo } from 'meteor/mongo';
+import { Tracker } from 'meteor/tracker';
 
-Template.registerHelper("Schemas", Schemas);
+Schemas = {};
+
+Template.registerHelper('Schemas', Schemas);
 
 Schemas.Item = new SimpleSchema({
   name: {
@@ -50,13 +54,13 @@ Schemas.Item = new SimpleSchema({
     type: String,
     optional: true
   }
-});
+}, { tracker: Tracker });
 
 var Collections = {};
 
-Template.registerHelper("Collections", Collections);
+Template.registerHelper('Collections', Collections);
 
-Items = Collections.Items = new Mongo.Collection("Items");
+Items = Collections.Items = new Mongo.Collection('Items');
 Items.attachSchema(Schemas.Item);
 
 if (Meteor.isServer) {
@@ -66,7 +70,7 @@ if (Meteor.isServer) {
   });
 
   Items.allow({
-    update: function () {
+    update() {
       return true;
     }
   });
@@ -74,11 +78,11 @@ if (Meteor.isServer) {
 } else if (Meteor.isClient) {
 
   Template["update-each"].helpers({
-    items: function () {
+    items() {
       return Items.find({}, {sort: {name: 1}});
     },
-    makeUniqueID: function () {
-      return "update-each-" + this._id;
+    makeUniqueID() {
+      return `update-each-${this._id}`;
     }
   });
 

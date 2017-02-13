@@ -21,16 +21,20 @@
           <h4>JavaScript</h4>
         </div>
         <div class="panel-body">
-<pre class="pre-scrollable">FieldValueIs = new Mongo.Collection("FieldValueIs");
+<pre class="pre-scrollable">import SimpleSchema from 'simpl-schema';
+import { Mongo } from 'meteor/mongo';
+import { Tracker } from 'meteor/tracker';
+
+const FieldValueIs = new Mongo.Collection('FieldValueIs');
 FieldValueIs.attachSchema(new SimpleSchema({
   a: {
     type: String,
-    allowedValues: ["foo", "bar"]
+    allowedValues: ['foo', 'bar']
   },
   b: {
     type: String
   }
-}));</pre>
+}, { tracker: Tracker }));</pre>
         </div>
       </div>
     </div>
@@ -45,7 +49,7 @@ FieldValueIs.attachSchema(new SimpleSchema({
       </div>
     </div>
   </div>
-  
+
   <h2>afFieldValueContains Helper</h2>
   <p>In this example, a "B" field is displayed only when the current value of the "A" field contains "foo".</p>
   <div class="row">
@@ -68,16 +72,23 @@ FieldValueIs.attachSchema(new SimpleSchema({
           <h4>JavaScript</h4>
         </div>
         <div class="panel-body">
-<pre class="pre-scrollable">FieldValueContains = new Mongo.Collection("FieldValueContains");
+<pre class="pre-scrollable">import SimpleSchema from 'simpl-schema';
+import { Mongo } from 'meteor/mongo';
+import { Tracker } from 'meteor/tracker';
+
+const FieldValueContains = new Mongo.Collection('FieldValueContains');
 FieldValueContains.attachSchema(new SimpleSchema({
   a: {
-    type: [String],
-    allowedValues: ["foo", "bar"]
+    type: Array,
+  },
+  'a.$': {
+    type: String,
+    allowedValues: ['foo', 'bar']
   },
   b: {
     type: String
   }
-}));</pre>
+}, { tracker: Tracker }));</pre>
         </div>
       </div>
     </div>
@@ -115,23 +126,27 @@ FieldValueContains.attachSchema(new SimpleSchema({
           <h4>JavaScript</h4>
         </div>
         <div class="panel-body">
-<pre class="pre-scrollable">FieldValueIs = new Mongo.Collection("FieldValueIs");
+<pre class="pre-scrollable">import SimpleSchema from 'simpl-schema';
+import { Mongo } from 'meteor/mongo';
+import { Tracker } from 'meteor/tracker';
+
+const FieldValueIs = new Mongo.Collection('FieldValueIs');
 FieldValueIs.attachSchema(new SimpleSchema({
   a: {
     type: String,
-    allowedValues: ["foo", "bar"]
+    allowedValues: ['foo', 'bar']
   },
   b: {
     type: String
   }
-}));
+}, { tracker: Tracker }));
 
-Template.registerHelper("currentFieldValue", function (fieldName) {
-  return AutoForm.getFieldValue("reactiveCurrentValueForm", fieldName) || "not selected";
+Template.registerHelper('currentFieldValue', function (fieldName) {
+  return AutoForm.getFieldValue('reactiveCurrentValueForm', fieldName) || 'not selected';
 });
 
-Template.registerHelper("currentFieldValue2", function (fieldName) {
-  return AutoForm.getFieldValue(fieldName) || "empty";
+Template.registerHelper('currentFieldValue2', function (fieldName) {
+  return AutoForm.getFieldValue(fieldName) || 'empty';
 });</pre>
         </div>
       </div>

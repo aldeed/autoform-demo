@@ -1,7 +1,7 @@
 <template name="layout">
   {{> header}}
   <div class="container">
-    {{> yield}}
+    {{> Template.dynamic template=content}}
   </div>
 </template>
 
@@ -16,22 +16,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{pathFor 'home'}}">AutoForm Demo</a>
+          <a class="navbar-brand" href="/">AutoForm Demo</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="{{isActiveRoute regex='quickform'}}"><a href="{{pathFor 'quickform'}}">quickForm Playground</a></li>
-            <li class="{{isActiveRoute regex='qfdetails'}}"><a href="{{pathFor 'qfdetails'}}">quickForm Details</a></li>
-            <li class="{{isActiveRoute regex='insertaf'}}"><a href="{{pathFor 'insertaf'}}">Insert autoForm</a></li>
-            <li class="{{isActiveRoute regex='updateaf'}}"><a href="{{pathFor 'updateaf'}}">Update autoForm</a></li>
-            <li class="{{isActiveRoute regex='types'}}"><a href="{{pathFor 'types'}}">Input Types</a></li>
-            <li class="{{isActiveRoute regex='select'}}"><a href="{{pathFor 'select'}}">Select Option Groups</a></li>
-            <li class="{{isActiveRoute regex='fieldvalues'}}"><a href="{{pathFor 'fieldvalues'}}">Field Values</a></li>
-            <li class="{{isActiveRoute regex='update-each'}}"><a href="{{pathFor 'update-each'}}">Update Form in Each Loop</a></li>
-            <li class="{{isActiveRoute regex='updatepush'}}"><a href="{{pathFor 'updatepush'}}">Form to Insert into Array Field</a></li>
-            <li class="{{isActiveRoute regex='updateArrayItem'}}"><a href="{{pathFor 'updateArrayItem'}}">Form to Update Specific Array Item</a></li>
+            <li class="{{isActiveRoute regex='quickform'}}"><a href="/quickform">quickForm Playground</a></li>
+            <li class="{{isActiveRoute regex='qfdetails'}}"><a href="/qfdetails">quickForm Details</a></li>
+            <li class="{{isActiveRoute regex='insertaf'}}"><a href="/insertaf">Insert autoForm</a></li>
+            <li class="{{isActiveRoute regex='updateaf'}}"><a href="/updateaf">Update autoForm</a></li>
+            <li class="{{isActiveRoute regex='types'}}"><a href="/types">Input Types</a></li>
+            <li class="{{isActiveRoute regex='select'}}"><a href="/select">Select Option Groups</a></li>
+            <li class="{{isActiveRoute regex='fieldvalues'}}"><a href="/fieldvalues">Field Values</a></li>
+            <li class="{{isActiveRoute regex='update-each'}}"><a href="/update-each">Update Form in Each Loop</a></li>
+            <li class="{{isActiveRoute regex='updatepush'}}"><a href="/updatepush">Form to Insert into Array Field</a></li>
+            <li class="{{isActiveRoute regex='update-array-item'}}"><a href="/update-array-item">Form to Update Specific Array Item</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

@@ -1,8 +1,12 @@
-Template["updateEach"].helpers({
-  items: function () {
+Template.updateEach.onCreated(function onCreated() {
+  this.subscribe('allItems');
+});
+
+Template.updateEach.helpers({
+  items() {
     return Items.find({}, {sort: {name: 1}});
   },
-  makeUniqueID: function () {
-    return "update-each-" + this._id;
+  makeUniqueID() {
+    return `update-each-${this._id}`;
   }
 });

@@ -1,7 +1,14 @@
+import SimpleSchema from 'simpl-schema';
+
+// Required AutoForm setup
+SimpleSchema.extendOptions(['autoform']);
+
+SimpleSchema.debug = true; //uncomment to help when developing, comment when deploying
+
 qfExampleSchemas = [
 
 {
-  title: "One required string field",
+  title: 'One required string field',
   schema: {
     name: {
       type: String
@@ -10,17 +17,17 @@ qfExampleSchemas = [
 },
 
 {
-  title: "Field with custom label",
+  title: 'Field with custom label',
   schema: {
     name: {
       type: String,
-      label: "Your full name"
+      label: 'Your full name'
     }
   }
 },
 
 {
-  title: "Optional field using plain template",
+  title: 'Optional field using plain template',
   schema: {
     name: {
       type: String,
@@ -33,7 +40,7 @@ qfExampleSchemas = [
 },
 
 {
-  title: "Text area with min and max text length",
+  title: 'Text area with min and max text length',
   schema: {
     description: {
       type: String,
@@ -47,95 +54,94 @@ qfExampleSchemas = [
 },
 
 {
-  title: "Number field",
+  title: 'Integer number field',
   schema: {
     favoritePositiveInteger: {
-      type: Number,
+      type: SimpleSchema.Integer,
       min: 1
     }
   }
 },
 
 {
-  title: "Decimal number field",
+  title: 'Decimal number field',
   schema: {
     favoritePositiveNumber: {
       type: Number,
       min: 1,
-      decimal: true,
       autoform: {
-        step: "0.01"
+        step: '0.01'
       }
     }
   }
 },
 
 {
-  title: "Date",
+  title: 'Date',
   schema: {
     birthday: {
       type: Date,
       optional: true,
-      label: "Your birthday",
+      label: 'Your birthday',
       min: (new Date(Date.UTC(2014, 0, 1))),
       autoform: {
-        value: new Date("2014-10-18T00:00:00Z")
+        value: new Date('2014-10-18T00:00:00Z')
       }
     }
   }
 },
 
 {
-  title: "URL custom type",
+  title: 'URL custom type',
   schema: {
     url: {
       type: String,
-      label: "URL",
+      label: 'URL',
       regEx: SimpleSchema.RegEx.Url,
       autoform: {
-        type: "url"
+        type: 'url'
       }
     }
   }
 },
 
 {
-  title: "Boolean checkbox with default value",
+  title: 'Boolean checkbox with default value',
   schema: {
     agree: {
       type: Boolean,
       defaultValue: true,
-      label: "Do you agree?"
+      label: 'Do you agree?'
     }
   }
 },
 
 {
-  title: "Boolean select",
+  title: 'Boolean select',
   schema: {
     agree: {
       type: Boolean,
-      label: "Do you agree?",
+      label: 'Do you agree?',
       autoform: {
-        type: "boolean-select",
-        trueLabel: "Yes, I agree",
-        falseLabel: "No, I do NOT agree",
-        firstOption: "(Please Choose a Response)"
+        type: 'boolean-select',
+        trueLabel: 'Yes, I agree',
+        falseLabel: 'No, I do NOT agree',
+        firstOption: '(Please Choose a Response)'
       }
     }
   }
 },
 
 {
-  title: "Boolean radios",
+  title: 'Boolean radios',
   schema: {
     agree: {
       type: Boolean,
-      label: "Do you agree?",
+      label: 'Do you agree?',
       autoform: {
-        type: "boolean-radios",
-        trueLabel: "Yes, I agree",
-        falseLabel: "No, I do NOT agree",
+        type: 'boolean-radios',
+        trueLabel: 'Yes, I agree',
+        falseLabel: 'No, I do NOT agree',
         value: false
       }
     }
@@ -143,42 +149,42 @@ qfExampleSchemas = [
 },
 
 {
-  title: "Select with numeric value",
+  title: 'Select with numeric value',
   schema: {
     choose: {
       type: Number,
       allowedValues: [1, 2, 3],
       defaultValue: 2,
-      label: "Choose a number"
+      label: 'Choose a number'
     }
   }
 },
 
 {
-  title: "Select with string value",
+  title: 'Select with string value',
   schema: {
     choose: {
       type: String,
-      allowedValues: ["one", "two", "three"],
+      allowedValues: ['one', 'two', 'three'],
       optional: true,
-      label: "Choose a number"
+      label: 'Choose a number'
     }
   }
 },
 
 {
-  title: "Select with options",
+  title: 'Select with options',
   schema: {
     choose: {
       type: Number,
       allowedValues: [1, 2, 3],
       optional: true,
-      label: "Choose a number",
+      label: 'Choose a number',
       autoform: {
         options: [
-          {label: "One", value: 1},
-          {label: "Two", value: 2},
-          {label: "Three", value: 3}
+          {label: 'One', value: 1},
+          {label: 'Two', value: 2},
+          {label: 'Three', value: 3}
         ]
       }
     }
@@ -186,21 +192,21 @@ qfExampleSchemas = [
 },
 
 {
-  title: "Multiple select with min and max",
+  title: 'Multiple select with min and max',
   schema: {
     colors: {
       type: Array,
       minCount: 2,
       maxCount: 5,
-      label: "What are your favorite colors?",
+      label: 'What are your favorite colors?',
       autoform: {
         options: [
-          {label: "Red", value: "red"},
-          {label: "Orange", value: "orange"},
-          {label: "Yellow", value: "yellow"},
-          {label: "Green", value: "green"},
-          {label: "Blue", value: "blue"},
-          {label: "Purple", value: "purple"}
+          {label: 'Red', value: 'red'},
+          {label: 'Orange', value: 'orange'},
+          {label: 'Yellow', value: 'yellow'},
+          {label: 'Green', value: 'green'},
+          {label: 'Blue', value: 'blue'},
+          {label: 'Purple', value: 'purple'}
         ]
       }
     },
@@ -211,7 +217,7 @@ qfExampleSchemas = [
 },
 
 {
-  title: "Optional array of strings",
+  title: 'Optional array of strings',
   schema: {
     tags: {
       type: Array,
@@ -226,8 +232,8 @@ qfExampleSchemas = [
 },
 
 {
-  title: "Object field",
-  text: "QuickForms automatically use afObjectFields for schema keys with type Object. Depending on which style template is used, this typically means the fields are grouped together in some way. Try changing the `optional` value for different keys in this schema and note how validation works.",
+  title: 'Object field',
+  text: 'QuickForms automatically use afObjectFields for schema keys with type Object. Depending on which style template is used, this typically means the fields are grouped together in some way. Try changing the `optional` value for different keys in this schema and note how validation works.',
   schema: {
     item: {
       type: Object,
@@ -237,14 +243,14 @@ qfExampleSchemas = [
       type: String
     },
     'item.quantity': {
-      type: Number
+      type: SimpleSchema.Integer
     }
   }
 },
 
 {
-  title: "Array of object fields",
-  text: "QuickForms automatically use afArrayFields for schema keys with type Array. Style templates typically render array fields with add/remove buttons, and the number of fields rendered respects the minCount and maxCount you specify in the schema or for the field.",
+  title: 'Array of object fields',
+  text: 'QuickForms automatically use afArrayFields for schema keys with type Array. Style templates typically render array fields with add/remove buttons, and the number of fields rendered respects the minCount and maxCount you specify in the schema or for the field.',
   schema: {
     items: {
       type: Array,
@@ -265,7 +271,7 @@ qfExampleSchemas = [
 },
 
 {
-  title: "Complex nested array fields",
+  title: 'Complex nested array fields',
   schema: {
     'level1': {
       type: Array,

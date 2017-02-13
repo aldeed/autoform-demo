@@ -21,7 +21,13 @@
   <h3>Choosing Fields</h3>
   <p>Any of the components that potentially render multiple fields can accept either a <code>fields</code> attribute, an <code>omitFields</code> attribute, or both. This includes <code>quickForm</code>, <code>afQuickFields</code>, <code>afFieldNames</code>, <code>afQuickField</code>, <code>afArrayField</code>, <code>afEachArrayItem</code>, and <code>afObjectField</code>. Also, with the exception of <code>quickForm</code>, you can pass a <code>name</code> attribute to any of these components to scope to fields beneath a particular field rather than top-level fields. (In some cases, the <code>name</code> attribute is required.)</p>
   <p>The following examples all use this schema:</p>
-<pre>Schemas.FieldsExamples = new SimpleSchema({
+<pre>import SimpleSchema from 'simpl-schema';
+import { Tracker } from 'meteor/tracker';
+
+// Required AutoForm setup
+SimpleSchema.extendOptions(['autoform']);
+
+Schemas.FieldsExamples = new SimpleSchema({
   name: {
     type: String
   },
@@ -68,7 +74,7 @@
   'contacts.$.phone': {
     type: String
   }
-});</pre>
+}, { tracker: Tracker });</pre>
   <div class="row">
     <div class="col-md-6">
       <div class="panel panel-default">

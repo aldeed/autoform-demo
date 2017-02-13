@@ -41,7 +41,10 @@
           <h4>JavaScript</h4>
         </div>
         <div class="panel-body">
-<pre class="pre-scrollable">Schemas = {};
+<pre class="pre-scrollable">import SimpleSchema from 'simpl-schema';
+import { Tracker } from 'meteor/tracker';
+
+Schemas = {};
 
 Template.registerHelper("Schemas", Schemas);
 
@@ -59,7 +62,7 @@ Schemas.Person = new SimpleSchema({
     type: Number,
     optional: true
   }
-});
+}, { tracker: Tracker });
 
 var Collections = {};
 

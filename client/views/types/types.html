@@ -64,18 +64,22 @@
         <select class="form-control schema-type-selection">
           <option value="String">String</option>
           <option value="Number">Number</option>
+          <option value="SimpleSchema.Integer">SimpleSchema.Integer</option>
           <option value="Boolean">Boolean</option>
           <option value="Date">Date</option>
-          <option value="[String]">[String]</option>
-          <option value="[Number]">[Number]</option>
-          <option value="[Boolean]">[Boolean]</option>
-          <option value="[Date]">[Date]</option>
+          <option value="Array of String">Array of String</option>
+          <option value="Array of Number">Array of Number</option>
+          <option value="Array of SimpleSchema.Integer">Array of SimpleSchema.Integer</option>
+          <option value="Array of Boolean">Array of Boolean</option>
+          <option value="Array of Date">Array of Date</option>
         </select>
       </div>
     </div>
   </div>
 
   <hr>
+
+  <p class="bg-primary" style="padding: 1rem">Specifying "type" in the `autoform` section of your schema:</p>
 
   <div class="row">
     <div class="col-md-6">
@@ -84,36 +88,7 @@
           <h4>Schema</h4>
         </div>
         <div class="panel-body">
-{{#if showOptions}}
-<pre>{
-  typeTest: {
-    type: {{selectedSchemaType}},
-    optional: true,
-    autoform: {
-      type: "{{selectedType}}",
-      options: function () {
-        return [
-          {label: "2013", value: 2013},
-          {label: "2014", value: 2014},
-          {label: "2015", value: 2015}
-        ];
-      }
-    }
-  }
-}</pre>
-{{else}}
-<pre>{
-  typeTest: {
-    type: {{selectedSchemaType}},
-    optional: true,
-    autoform: {
-      afFieldInput: {
-        type: "{{selectedType}}"
-      }
-    }
-  }
-}</pre>
-{{/if}}
+<pre>{{{jsonTypesSchema1}}}</pre>
         </div>
       </div>
       <div class="panel panel-default">
@@ -139,6 +114,8 @@
 
   <hr>
 
+  <p class="bg-primary" style="padding: 1rem">Specifying "type" on an afFormGroup:</p>
+
   <div class="row">
     <div class="col-md-6">
       <div class="panel panel-default">
@@ -146,12 +123,7 @@
           <h4>Schema</h4>
         </div>
         <div class="panel-body">
-<pre>{
-  typeTest: {
-    type: {{selectedSchemaType}},
-    optional: true
-  }
-}</pre>
+<pre>{{{jsonTypesSchema2}}}</pre>
         </div>
       </div>
       <div class="panel panel-default">
@@ -187,6 +159,8 @@
 
   <hr>
 
+  <p class="bg-primary" style="padding: 1rem">Specifying "type" on an afFieldInput:</p>
+
   <div class="row">
     <div class="col-md-6">
       <div class="panel panel-default">
@@ -194,12 +168,7 @@
           <h4>Schema</h4>
         </div>
         <div class="panel-body">
-<pre>{
-  typeTest: {
-    type: {{selectedSchemaType}},
-    optional: true
-  }
-}</pre>
+<pre>{{{jsonTypesSchema2}}}}</pre>
         </div>
       </div>
       <div class="panel panel-default">

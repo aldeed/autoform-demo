@@ -26,9 +26,13 @@
           <h4>JavaScript</h4>
         </div>
         <div class="panel-body">
-<pre class="pre-scrollable">Schemas = {};
+<pre class="pre-scrollable">import SimpleSchema from 'simpl-schema';
+import { Mongo } from 'meteor/mongo';
+import { Tracker } from 'meteor/tracker';
 
-Template.registerHelper("Schemas", Schemas);
+Schemas = {};
+
+Template.registerHelper('Schemas', Schemas);
 
 Schemas.Person = new SimpleSchema({
   firstName: {
@@ -44,13 +48,13 @@ Schemas.Person = new SimpleSchema({
     type: Number,
     optional: true
   }
-});
+}, { tracker: Tracker });
 
-var Collections = {};
+const Collections = {};
 
-Template.registerHelper("Collections", Collections);
+Template.registerHelper('Collections', Collections);
 
-People = Collections.People = new Mongo.Collection("People");
+People = Collections.People = new Mongo.Collection('People');
 People.attachSchema(Schemas.Person);
 
 Meteor.publish(null, function () {
@@ -58,41 +62,38 @@ Meteor.publish(null, function () {
 });
 
 People.allow({
-  insert: function () {
+  insert() {
     return true;
   },
-  remove: function () {
+  remove() {
     return true;
   }
 });
 
 Template.updateaf.helpers({
-  autoSaveMode: function () {
+  autoSaveMode() {
     return Session.get("autoSaveMode") ? true : false;
   },
-  selectedPersonDoc: function () {
+  selectedPersonDoc() {
     return People.findOne(Session.get("selectedPersonId"));
   },
-  isSelectedPerson: function () {
+  isSelectedPerson() {
     return Session.equals("selectedPersonId", this._id);
   },
-  formType: function () {
-    if (Session.get("selectedPersonId")) {
-      return "update";
-    } else {
-      return "disabled";
-    }
+  formType() {
+    if (Session.get("selectedPersonId")) return "update";
+    return "disabled";
   },
-  disableButtons: function () {
+  disableButtons() {
     return !Session.get("selectedPersonId");
   }
 });
 
 Template.updateaf.events({
-  'click .person-row': function () {
+  'click .person-row'() {
     Session.set("selectedPersonId", this._id);
   },
-  'change .autosave-toggle': function () {
+  'change .autosave-toggle'() {
     Session.set("autoSaveMode", !Session.get("autoSaveMode"));
   }
 });</pre>

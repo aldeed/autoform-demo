@@ -5,6 +5,6 @@ Meteor.publish(null, function () {
   ];
 });
 
-Meteor.publish("allItems", function () {
+Meteor.publish('allItems', function () {
   return Items.find();
 });
